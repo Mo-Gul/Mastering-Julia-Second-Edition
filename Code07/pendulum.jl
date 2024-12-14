@@ -1,5 +1,5 @@
 
-https://www.youtube.com/watch?v=hjmTax2DOHA
+# https://www.youtube.com/watch?v=hjmTax2DOHA
 
 alpha = 0.75
 beta = 0.1
@@ -24,8 +24,8 @@ sol_SDE = solve(prob_SDE, EM(), dt = step)
 
 #--------------------------------------------------------------------------------
 
-https://www.juliabloggers.com/summary-of-julia-plotting-packages
-https://docs.juliahub.com/UnitfulRecipes/KPSlU/1.1.0/examples/2_Plots/
+# https://www.juliabloggers.com/summary-of-julia-plotting-packages
+# https://docs.juliahub.com/UnitfulRecipes/KPSlU/1.1.0/examples/2_Plots/
 
 using DifferentialEquations
 
@@ -38,7 +38,7 @@ end
 
 u0 = [3.0, 0.0];                  # initial state vector
 tt = (0.0, 10.0);                 # time interval
-ps = [1.0];					 	  # parameters
+ps = [1.0];                       # parameters
 
 prob = ODEProblem(pendulum, u0, tt, ps)
 sol = solve(prob)

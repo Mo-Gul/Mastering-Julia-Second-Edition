@@ -1,8 +1,8 @@
 function hailstone(n)
    k = 1
    a = [n]
-   while n > 1 
-      n = (n % 2 == 0) ? n >> 1 : 3n + 1 
+   while n > 1
+      n = (n % 2 == 0) ? n >> 1 : 3n + 1
       push!(a,n)
       k += 1
    end
@@ -93,16 +93,16 @@ end
 module Vehicles
 
 export Contact, Vehicle, Car, Bike, Yacht, Powerboat, Boat
-export Ford, BMW, VW, Scooter, MotorBike, Speedboat 
+export Ford, BMW, VW, Scooter, MotorBike, Speedboat
 
 const KNOTS_TO_MPH = 1.151
-       
+
 struct Contact
     name::String
     email::String
     phone::String
 end
-                             
+
 abstract type Vehicle end
 
 abstract type Car <: Vehicle end
@@ -110,7 +110,7 @@ abstract type Bike <: Vehicle  end
 abstract type Boat <: Vehicle end
 
 abstract type Powerboat <: Boat end
-       
+
 struct Ford <: Car
     owner::Contact
     make::String
@@ -120,9 +120,9 @@ struct Ford <: Car
     speed_mph::Float64
     function Ford(owner, make, engine_cc,speed_mph)
         new(owner,make,"Petrol","Black",engine_cc,speed_mph)
-     end
+    end
 end
-       
+
 struct BMW <: Car
     owner::Contact
     make::String
@@ -132,9 +132,9 @@ struct BMW <: Car
     speed_mph::Float64
     function BMW(owner,make,engine_cc,speed_mph)
         new(owner,make,"Petrol","Blue",engine_cc,speed_mph)
-   end
+    end
 end
-       
+
 struct VW <: Car
     owner::Contact
     make::String
@@ -150,7 +150,7 @@ struct MotorBike <: Bike
     engine_cc::Int64
     speed_mph::Float64
 end
-       
+
 struct Scooter <: Bike
     owner::Contact
     make::String
@@ -163,7 +163,7 @@ mutable struct Yacht <: Boat
     make::String
     length_m::Float64
 end
-              
+
 mutable struct Speedboat <: Powerboat
     owner::Contact
     make::String
@@ -174,7 +174,7 @@ mutable struct Speedboat <: Powerboat
 end
 
 function is_quicker(a::VW, b::BMW)
-   if (a.speed_mph == b.speed_mph) 
+   if (a.speed_mph == b.speed_mph)
       return nothing
     else
       return(a.speed_mph > b.speed_mph ? a : b)
@@ -183,7 +183,7 @@ end
 
 function is_quicker(a::Speedboat, b::Scooter)
    a_mph = KNOTS_TO_MPH * a.speed_knots
-   if (a_mph == b.speed_mph) 
+   if (a_mph == b.speed_mph)
        return nothing
     else
        return(a_mph > b.speed_mph ? a : b)
@@ -191,10 +191,10 @@ function is_quicker(a::Speedboat, b::Scooter)
 end
 
 function is_longer(a::Yacht, b::Speedboat)
-   if (a.length_m == b.length_m) 
-       return nothing
+    if (a.length_m == b.length_m)
+        return nothing
     else
-       return(a.length > b.length_m ? a : b)
+        return(a.length > b.length_m ? a : b)
     end
 end
 
@@ -232,7 +232,7 @@ end
 
 # Note that Malcolm now owns Dave's boat
 #
-s =[dvCar, dvBoat]  
+s =[dvCar, dvBoat]
 for c in s
     who = c.owner.name
     model = c.make
@@ -240,7 +240,7 @@ for c in s
 end
 
 println("James owns these vehicles: ")
-s = [jmCar, jmBike, jmBoat] 
+s = [jmCar, jmBike, jmBoat]
 for c in s
     println("....\t$(c.make)")
 end
@@ -405,7 +405,7 @@ struct VecN
 end
 
 sizeof(a::VecN) = length(a.sv)
-sOK(a::VecN, b::VecN) = 
+sOK(a::VecN, b::VecN) =
  (sizeof(a) == sizeof(b)) ? true : throw(BoundsError("Vector of different lengths"));
 
 (+)(a::VecN, b::VecN) = [a.sv[i] + b.sv[i] for i in 1:sizeof(a) if sOK(a,b)]
@@ -414,13 +414,13 @@ sOK(a::VecN, b::VecN) =
 (/)(a::VecN, x::Real) = [a.sv[i]/x for i in 1:sizeof(a)]
 
 (==)(a::VecN, b::VecN) = any([(a.sv[i] == b.sv[i]) for i in 1:sizeof(a) if sOK(a,b)])
-                            
+
 dot(a::VecN, b::VecN) = sum([a.sv[i]*b.sv[i] for i in 1:sizeof(a) if sOK(a,b)])
 norm(a::VecN) = sqrt(dot(a,a));
 
 (<)(a::VecN, b::VecN) = norm(a) < norm(b) ? true : false;
-(>)(a::VecN, b::VecN) = norm(a) > norm(b) ? true : false;                                            
-                                            
+(>)(a::VecN, b::VecN) = norm(a) > norm(b) ? true : false;
+
 distx(a::VecN, b::VecN) = sum(map(x -> x*x,[a.sv[i]-b.sv[i] for i in 1:sizeof(a) if sOK(a,b)]))
 
 end
@@ -429,7 +429,7 @@ end
 #
 using Main.VNX, StaticArrays
 
-K = 10^5; 
+K = 10^5;
 vv = Array{VecN}(undef,K);
 
 for j = 1:K
@@ -439,12 +439,11 @@ end
 # Sum up the vectors which lie within the 4-ball
 #
 s = 0;
-for j = 1:K 
+for j = 1:K
   if (norm(vv[j]) < 1.0) s += 1 end
 end
 
 # Volume of the unit 4-ball is 2*π*π
 # The count is 1/16th of the volume
-# 
+#
 mypi = sqrt(32*s/K)
-

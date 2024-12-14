@@ -21,19 +21,19 @@ sumsq(x,y) = x*x + y*y;
 
 # ╔═╡ 6a98182e-ca8e-4e0b-8179-71dbf02e5ef6
 begin
-	K = zero(Integer);
-	for i = 1:N
-  		if sumsq(rand(), rand()) < 1.0
-     		K += 1
-  		end
-	end
+    K = zero(Integer);
+    for i = 1:N
+        if sumsq(rand(), rand()) < 1.0
+            K += 1
+        end
+    end
 end
 
 # ╔═╡ 003c3ed7-7e3e-4efa-be58-b66c3e1f8edb
 mypi = 4.0*(K / N)
 
 # ╔═╡ 8ea70598-dbf1-49a2-ba4e-3a27b9afe044
-   md"""Estimate of PI after $N trials is $mypi"""
+md"""Estimate of PI after $N trials is $mypi"""
 
 # ╔═╡ f93e5370-a3f0-4340-8321-2e6fe47f69a8
 piG = ((rand()^2 + rand()^2) < 1.0 for i = 1:N)
@@ -43,8 +43,8 @@ piG = ((rand()^2 + rand()^2) < 1.0 for i = 1:N)
 
 # ╔═╡ c3594dcf-ff72-48a1-806f-182879c25ec5
 begin
-	md"<br/>---"
-	md"### Basel Function"
+    md"<br/>---"
+    md"### Basel Function"
 end
 
 # ╔═╡ a29cafac-d648-4bf0-9c40-dead838b8503

@@ -1,9 +1,12 @@
 # [ A box plot of stock prices ]
 #=
-  Stock market values for Google, Apple, Amazon, and Microsoft 
-  for the years 2018-19. All stocks are normalized to start with 
+  Stock market values for Google, Apple, Amazon,
+and Microsoft
+  for the years 2018-19.
+All stocks are normalized to start with
   their closing values on 01-01-2019.
-  
+=#
+
 cd(ENV["HOME"]*"/MJ2")
 
 using DataFrames, CSV, PlotlyJS
@@ -22,7 +25,7 @@ plot(data, layout)
 
 ## Using Plotly [online]
 #=
-  The API key is (currently) a 20-character ASCII string returned on registration 
+  The API key is (currently) a 20-character ASCII string returned on registration
   by Plotly and can be viewed, if forgotten, by logging on to https://Plot.ly
 =#
 Plotly.set_credentials_file(Dict("username"=>"sherrinm",
@@ -45,4 +48,3 @@ end
 data = contour(z=Z , x=>X,  y=Y);
 resp = Plotly.plot(data);
 plot_url = Plotly.post(resp);
- 

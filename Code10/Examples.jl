@@ -63,22 +63,22 @@ while true
   conn = accept(server)
   @async begin
     try
-     while true
-       s0 = readline(conn)
-       s1 = chomp(s0)
-      (length(chomp(s1)) > 0) && (s2 = reverse(s1)))
-       if s2 == "."
-         println("Done.")
-         close(conn)
-         exit(0)
-       else
-         write(conn,string(pp,s2,"\r\n"))
-       end
+      while true
+        s0 = readline(conn)
+        s1 = chomp(s0)
+        (length(chomp(s1)) > 0) && (s2 = reverse(s1))
+        if s2 == "."
+          println("Done.")
+          close(conn)
+          exit(0)
+        else
+          write(conn,string(pp,s2,"\r\n"))
+        end
       end
-     catch err
-       println("Connection lost: $err")
-     exit(1)
-   end
+    catch err
+      println("Connection lost: $err")
+      exit(1)
+    end
   end
 end
 
@@ -95,13 +95,13 @@ function getquote(db::SQLite.DB)
   sql = "select count(*) as nq from quotes";
   res = DBInterface.execute(db, sql) |> DataFrame
   nq = res[!,:nq][1];
-  sql = """select a.autname, q.quotext 
+  sql = """select a.autname, q.quotext
        from quotes q
        join authors a on a.id = q.aid
        where q.id = (1 + abs(random() % $nq))"""
   res = DBInterface.execute(db, sql) |> DataFrame
   auth = res[!,:autname][1]
-  if (auth == "missing") 
+  if (auth == "missing")
     auth = "Anon"
   end
   quotext = res[!,:quotext][1]
@@ -166,9 +166,9 @@ HTTP.register!(PET_SERVER, "GET", "/pet/{id}", getPet);
 const PORT = 7878;
 server = HTTP.serve!(PET_SERVER, Sockets.localhost, PORT);
 
-p0 = Pet(); 
-p0.type = "cat"; 
-p0.breed = "Domestic"; 
+p0 = Pet();
+p0.type = "cat";
+p0.breed = "Domestic";
 p0.name = "Harry";
 resp = HTTP.post("http://localhost:$PORT/pet", [], JSON3.write(p0));
 resp.status
@@ -207,15 +207,15 @@ using Mux
   Mux.defaults,
   page(respond("/","<h1>We are off to catch the White Whale</h1>")),
   page("/about",respond("Call me,<b>Ismail</b>")),
-  page("/user/:user", 
+  page("/user/:user",
     req -> "Hello, $(req[:params][:user])!"),
   page("/bye", respond(bye)),
   Mux.notfound())
 
 serve(muxtest)
-        
+
 using AssetRegistry
-        
+
 HOMEDIR = (Sys.iswindows() ? ENV["HOMEPATH"] : ENV["HOME"]);
 bacon = joinpath(HOMEDIR,"MJ2","DataSources","Files","bacon.html");
 
@@ -231,7 +231,7 @@ using HTTP, Gumbo
 
 function fetchpage(url)
   response = HTTP.get(url)
-  if response.status == 200 && 
+  if response.status == 200 &&
     parse(Int,Dict(response.headers)["Content-Length"]) > 0
     String(response.body)
   else
@@ -245,7 +245,7 @@ function extractlinks(elem, links)
          in("href", collect(keys(attrs(elem))))
 
     url = getattr(elem, "href")
-    startswith(url,"/") && 
+    startswith(url,"/") &&
          length(url) > 1 && push!(links,url)
   end
   for child in children(elem)
@@ -275,7 +275,7 @@ up(8888)
 
 using Genie.Renderer.Html
 route("/kissing") do
-  h2("Just put your lips together and blow.") |> html 
+  h2("Just put your lips together and blow.") |> html
 end
 
 using Genie.Renderer.Json
@@ -353,11 +353,11 @@ end
 # Spawn the task over all the workers and calculate a different factorial on each worker.
 r = [@spawnat w fac(3 + 2*w) for w in workers()];
 
-#= This set up a 4-element vector, spawning the factorial on each processor for a value 
+#= This set up a 4-element vector, spawning the factorial on each processor for a value
 of 3 + 2 times the worker number,  that is values of: 7, 9, 11, 13 =#
 
 # Return all the results
-for id in r 
+for id in r
   @show id, fetch(id)
 end
 
@@ -379,7 +379,7 @@ function needles_seq(n::Integer)
 # Count times when needle crosses either x == 0 or x == 1?
     k += (xr >= 1 || xl <= 0) ? 1 : 0
   end
-  m = n – k
+  m = n - k
   return (n / k * 2)
 end;
 
@@ -392,7 +392,7 @@ function needles_par(n)
     xl = ρ - cos(φ)/2
     (xr >= 1 || xl <= 0) ? 1 : 0
   end
-  m = n – k
+  m = n - k
   return (n / k * 2)
 end
 
@@ -411,7 +411,7 @@ addprocs(4);
 @everywhere using DistributedArrays, Statistics
 
 da = drandn(10,10,10,10)
-da[1][1][1][1]      
+da[1][1][1][1]
 
 fieldnames(typeof(da))
 da.dims
@@ -485,32 +485,32 @@ dp = DataFrame(df)
 dt = CSV.File("$DS/teams.csv") |> DataFrame
 
 dp1 = dp[:,[:surname,:team,:position]];
-dt1 = dt[:,[:team,:games,:wins]]; 
+dt1 = dt[:,[:team,:games,:wins]];
 
 dp2 = dp[:,[:surname,:team,:position, :saves]] |>
-  @filter(_.position == "goalkeeper" && _.saves >= 16) |> 
-  @orderby_descending(_.saves) |>  DataFrame;  
+  @filter(_.position == "goalkeeper" && _.saves >= 16) |>
+  @orderby_descending(_.saves) |>  DataFrame;
 
 println(dp2[:,[:surname,:team,:saves]])
 
 dp3 = dp |> @groupby(_.team) |>
   @map({Team=key(_), Shots=sum(_.shots)}) |> DataFrame
 
-dj = dt |>  @join(dp3, _.team, _.Team, 
-    {_.team, _.goalsFor, __.Shots} ) |> 
+dj = dt |>  @join(dp3, _.team, _.Team,
+    {_.team, _.goalsFor, __.Shots} ) |>
     @orderby(_.team) |>  DataFrame;
 
 # Printing this out as a percentage success rate
 for r in eachrow(dj)
-  print(r[:team], " => ", 
+  print(r[:team], " => ",
         round(100*r[:goalsFor]/r[:Shots], digits=2),"%\n")
 end
 
-pc(x,y) = round(100*x/y, digits=2
+pc(x,y) = round(100*x/y, digits=2)
 count = 0
 for r in eachrow(dj)
   count += 1
-  (count == 1) && 
+  (count == 1) &&
      @printf "%10s   %s\n" "Team" "Shot success"
   team = r[:team]
   if team in ["England","Germany","North Korea","USA"]
@@ -519,4 +519,3 @@ for r in eachrow(dj)
        @printf("%12s %6.2f %%\n", team, pc(goals,shots))
     end
   end
-

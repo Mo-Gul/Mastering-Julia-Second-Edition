@@ -77,7 +77,7 @@ SQLite,tables(db)
 
 SQLite.columns(db,"quotes")
 sql = "select count(*) from quotes";
-df = DataFrame(SQLite.Query(db, sql);
+df = DataFrame(SQLite.Query(db, sql));
 
 df[1]
 select * from quotes limit 10
@@ -122,7 +122,8 @@ using ODBC
 # Connect via the valid DSN
 dsn = ODBC.DSN("Chinook",usr="malcolm",pwd="mypasswd");
 df = ODBC.query(dsn, "select count(*) from Customers");
-println("Number of customers: , df[1])Number of customers: 59
+println("Number of customers: , $(df[1])")
+# Number of customers: 59
 
 sql = "select a.LastName, a.FirstName,";
 sql *= " count(b.InvoiceId) as Invs, sum(b.Total) as Amt";
@@ -244,7 +245,7 @@ using JavaCall
 CP = "/Users/malcolm/MJ2/db-derby/lib/derbytools.jar";
 
 JavaCall.addClassPath(CP);
-JavaCall.addOpts("-Xmx1024M"); 
+JavaCall.addOpts("-Xmx1024M");
 JavaCall.addOpts("-Xrs");
 JavaCall.init()
 
@@ -268,7 +269,7 @@ finally
   end
 end;
 
-println("\nNumber of quotes in database: $k);
+println("\nNumber of quotes in database: $k");
 
 # Create a cursor to the Quotes database
 # ... and execute a SQL statement
@@ -571,7 +572,7 @@ filter(x -> x.close >= 100.0 && x.close <= 140.0, stockdata[:, "GS"])
 
 # Get records for Xerox where the first tracing day (of the month) is a Friday
 
-filter((1=>Dates.isfriday, googl = stockdata[:, ["GOOGL"]];
+filter(1=>Dates.isfriday, googl = stockdata[:, ["GOOGL"]]);
 spread = map(x -> x.high - x.low, googl)
 round(reduce(+,(mean.(spread)))/length(spread), digits=4)
 gain = map(x -> x.open - x.close, googl)

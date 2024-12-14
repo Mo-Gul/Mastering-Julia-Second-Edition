@@ -5,7 +5,7 @@ using Printf, Dates, Statistics
 
 include("ftop.jl")
 include("queens.jl")
-include("panto.jl"
+include("panto.jl")
 include("quandl.jl")
 
 const PUNCTS =  [' ','\n','\t','-','.',',',':',';','!','?','\'','"'];

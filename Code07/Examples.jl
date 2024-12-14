@@ -10,9 +10,9 @@ v = A\b
 
 transpose(v)
 
-A1 = A[:, 2:3] 
+A1 = A[:, 2:3]
 
-(A1\b)' 
+(A1\b)'
 
 A2 = A[1:2,:]; b2 = b[1:2];
 (A2\b2)'
@@ -54,7 +54,7 @@ The eigenvectors are the columns of the V matrix.
 A*V[:,1] - U[1]*V[:,1]
 
 #=
-That is, all the real and imaginary parts are of the e-16 order, 
+That is, all the real and imaginary parts are of the e-16 order,
 so this is in effect a zero matrix of complex numbers.
 =#
 
@@ -135,7 +135,7 @@ denominator_coefs = coefa(tf)
 responsetype = Bandpass(10, 40; fs=1000)
 prototype = Butterworth(4)
 
-xb = filt(digitalfilter(responsetype, prototype), x)›
+xb = filt(digitalfilter(responsetype, prototype), x)
 plot(1:length(xb), xb)
 
 # Image Processing
@@ -145,7 +145,7 @@ magic  = chomp(readline(img));
 params = chomp(readline(img));
 pm = split(params)
 
-# Remember the GSD 
+# Remember the GSD
 
 try
   global wd = parse(Int64,pm[1]);
@@ -195,8 +195,8 @@ using Plots; gr()
 # http://docs.juliadiffeq.org/latest/
 
 #=
-OrdinaryDiffEq.jl is part of the JuliaDiffEq common interface, 
-but can be used independently of DifferentialEquations.jl. 
+OrdinaryDiffEq.jl is part of the JuliaDiffEq common interface,
+but can be used independently of DifferentialEquations.jl.
 
 User passes to OrdinaryDiffEq.jl an algorithm to solve
 =#
@@ -209,7 +209,7 @@ function ff(d,u,p,t)
   d[3] = -u[3] + u[2]*u[3]
 end
 
-           
+
 u0 = [0.5; 1.0; 2.0];    # Setup the initial conditions
 tspan = (0.0,10.0);       # and the time range
 
@@ -259,7 +259,7 @@ f(x,a) = exp(x) - a*x
 
 for p = 2.8:-0.02:2.6
   try
-    ff(x) = f(x,p) 
+    ff(x) = f(x,p)
     @printf "%.2f : %.5f\n" p find_zero(ff,1.0)
   catch
     error("No convergence for parameter value: $p")
@@ -347,7 +347,7 @@ differentiate("sin(x)*cos(x)", :x)
 
 # Not that clear but can be simplfied somewhat
 # ... although not entirely perfect.
-simplify(differentiate("sin(x)*cos(x)", :x)) 
+simplify(differentiate("sin(x)*cos(x)", :x))
 
 # These techniques work more than a single variable too
 # We get a 2-D array of partial derivatives
@@ -379,24 +379,24 @@ function hero(x; k::Integer = 10)
   return t
 end
 
-Call the function with the D() structure.
+# Call the function with the D() structure.
 db = hero(da)
 
 db.d1^2   # Confirm the solution
 
-How does this work?
-Decode it without the 'dual' number
+# How does this work?
+# Decode it without the 'dual' number
 
 using Printf
-function dhero(x; k = 10) 
+function dhero(x; k = 10)
     t  = (1+x)/2
     dt = 1
     @printf "%3d : %.5f : %.5f\n" 1 t dt
-    for i = 2:k;  
-        t  = (t+x/t)/2; 
-        dt = (dt + (t - x*dt)/t^2)/2; 
+    for i = 2:k;
+        t  = (t+x/t)/2;
+        dt = (dt + (t - x*dt)/t^2)/2;
         @printf "%3d : %.5f : %.5f\n" i t dt
-    end    
+    end
     (t,dt)
 end
 
@@ -405,8 +405,8 @@ dhero(17, k=5)
 
 using SymPy
 
-Display Hero's first 4 terms
-Gets a little complex after that, try upping M!
+# Display Hero's first 4 terms
+# Gets a little complex after that, try upping M!
 
 M = 4
 x = symbols("x")
@@ -478,7 +478,7 @@ N = 6;
 m = Model()
 @variable(m, x[1:N], Bin);      # Define array variable to hold results
 profit = [ 5, 3, 2, 7, 4, 4 ];  # Profit vector of size N
-weight = [ 2, 8, 4, 2, 5, 6 ];  # Weights vector of size 
+weight = [ 2, 8, 4, 2, 5, 6 ];  # Weights vector of size
 
 maxcap = 15;
 
@@ -531,10 +531,10 @@ Random.seed!(iseed);
 queue_length = 0;
 queue_stack  = Array{Integer,1}(undef,0);
 
-@resumable function visit(env::Environment, 
-                        teller::Resource, 
-                        id::Integer, 
-                        time_arrvl::Float64, 
+@resumable function visit(env::Environment,
+                        teller::Resource,
+                        id::Integer,
+                        time_arrvl::Float64,
                         dist_serve::Distribution)
 
 # customer arrives
@@ -551,24 +551,24 @@ queue_stack  = Array{Integer,1}(undef,0);
 # customer starts to be served
     @yield request(teller)
     queue_length -= 1
-    @printf "Customer %2d %15s : %.3f\n" id "being served" now(env) 
+    @printf "Customer %2d %15s : %.3f\n" id "being served" now(env)
 #  teller is busy
-    @yield timeout(env, rand(dist_serve)) 
+    @yield timeout(env, rand(dist_serve))
 # customer leaves
-    @yield release(teller) 
+    @yield release(teller)
     @printf "Customer %2d %15s : %.3f\n" id "leaves" now(env)
 end
 
 # initialize simulation <: environment
-sim     = Simulation()  
+sim     = Simulation()
 
 # initialize service resources
-service = Resource(sim, NUM_TELLERS) 
+service = Resource(sim, NUM_TELLERS)
 
 # initialize customers and set arrival time
 # customers arrive randomly baed on Poisson distribution
 arrival_time = 0.0
-for i = 1:NUM_CUSTOMERS 
+for i = 1:NUM_CUSTOMERS
     arrival_time += rand(arrival_dist)
     @process visit(sim, service, i, arrival_time, service_dist)
 end
@@ -578,19 +578,3 @@ run(sim)
 
 # Check on which customers had to wait
 queue_stack
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

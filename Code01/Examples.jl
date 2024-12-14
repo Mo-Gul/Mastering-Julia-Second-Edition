@@ -1,4 +1,4 @@
-)using BenchmarkTools, UnicodePlots, PythonPlot
+using BenchmarkTools, UnicodePlots, PythonPlot
 
 # Define a function to compute the sum of the squares of (x,y)
 
@@ -54,7 +54,7 @@ while (true)
     K = zero(Integer)
     for i = 1:N
         if sumsq(rand(), rand()) < 1.0
-          K += 1
+            K += 1
         end
     end
     println(4.0*(K/N))
@@ -153,4 +153,3 @@ for k = 1:5
   [ S[t] = S[t-1] * (1 + (r - q - 0.5*v*v)*dt + v*dW[t] + 0.5*v*v*dW[t]*dW[t]) for t=2:N ]
   plt.plot(x,S)
 end
-

@@ -1,7 +1,7 @@
 # Compute an Asian stock option
 
 using PythonPlot
-plt = PythonPlot 
+plt = PythonPlot
 
 S0  = 100;      # Spot price
 K   = 102;      # Strike price
@@ -28,4 +28,3 @@ for k = 1:5
   [ S[t] = S[t-1] * (1 + (r - q - 0.5*v*v)*dt + v*dW[t] + 0.5*v*v*dW[t]*dW[t]) for t=2:N ]
   plt.plot(x,S)
 end
-

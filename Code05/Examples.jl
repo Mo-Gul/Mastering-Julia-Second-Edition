@@ -8,7 +8,7 @@ for p in pkgs
     !haskey(ipks,p) && Pkg.add(p)
 end
 
-using PyCall, PyPlot, Plots, RCall, RDatasets, JavaCall 
+using PyCall, PyPlot, Plots, RCall, RDatasets, JavaCall
 using DistributedArrays, SymPy, LibCURL
 using Printf, Random, Distributed
 
@@ -20,7 +20,7 @@ randomize() = Random.seed!(systime())
 
 systime()
 
-# A 'mad' example (a*b + c) 
+# A 'mad' example (a*b + c)
 # The routine is called fma in library: libc
 #
 mad(a,b,c) = ccall((:fma,"libc"),Float64,(Float64,Float64,Float64),a,b,c)
@@ -32,7 +32,7 @@ mad(3.1,5.2,7.4)
 # Call a FORTRAN routine from LAPACK to compute the dot product
 # between two arrays.
 # FORTRAN passes scalar arguments by reference
-# Note: the vectors arepassed by reference already. 
+# Note: the vectors arepassed by reference already.
 
 function compute_dot(DX::Vector{Float64},DY::Vector{Float64})
     @assert length(DX) == length(DY)
@@ -40,7 +40,7 @@ function compute_dot(DX::Vector{Float64},DY::Vector{Float64})
     incx = incy = 1
     dotprod = ccall((:ddot, "libLAPACK"),
                    Float64,
-                   (Ptr{Int64}, Ptr{Float64}, Ptr{Int64}, 
+                   (Ptr{Int64}, Ptr{Float64}, Ptr{Int64},
                    Ptr{Float64}, Ptr{Int64}),
                    Ref(n), DX, Ref(incx), DY, Ref(incy))
     return dotprod
@@ -59,28 +59,28 @@ ptr = ccall((:getenv, "libc"), Ptr{UInt8},(Ptr{UInt8},),"HOME")
 myHome = unsafe_string(ptr)
 push!(LOAD_PATH,string(myHome,"/Julia/MyModules"))
 
-#= 
+#=
 The system library call has a third parameter, which when set to zero will create a new variable but not overwrite an existing one.
 =#
 # Define the function to replace existing variable
-evset(var::String, val::String) = 
+evset(var::String, val::String) =
      ccall((:setenv,"libc"),Clong,
            (Cstring,Cstring,Clong),var,val,1);
- 
+
 # The unset routine is quite simple
-evunset(evvar::String) = 
+evunset(evvar::String) =
      ccall((:unsetenv,"libc"),Clong,(Cstring,),evvar);
 
-#= 
+#=
 The system library call has a third parameter, which when set to zero will create a new variable but not overwrite an existing one.
 =#
 # Define the function to replace existing variable
-evset(var::String, val::String) = 
+evset(var::String, val::String) =
      ccall((:setenv,"libc"),Clong,
            (Cstring,Cstring,Clong),var,val,1);
- 
+
 # The unset routine is quite simple
-evunset(evvar::String) = 
+evunset(evvar::String) =
      ccall((:unsetenv,"libc"),Clong,(Cstring,),evvar);
 
 
@@ -95,10 +95,10 @@ julia> ENV["PACKT_HOME"]
 # Now unset it, verify it is so.
 julia> evunset("PACKT_HOME");
 julia> ENV["PACKT_HOME"]
-ERROR: KeyError: key "PACKT_HOME" not found
+# ERROR: KeyError: key "PACKT_HOME" not found
 
 
-#= 
+#=
 
 // Basel function in C
 
@@ -126,7 +126,7 @@ double basel(int N) {
 double horner(double x, double aa[], long n) {
   long i;
   double s = aa[n-1];
-  if (n > 1) { 
+  if (n > 1) {
     for (i = n-2; i >= 0; i--) {
       s = s*x + aa[i];
     }
@@ -137,7 +137,7 @@ double horner(double x, double aa[], long n) {
 // Build a dynamic library (on OSX) as:
 //
 // clang -c basel.c horner.c
-// libtool -dynamic basel.o horner.o -o libmyfuns.dylib  
+// libtool -dynamic basel.o horner.o -o libmyfuns.dylib
 //         -lSystem -macosx_version_min 10.13
 //
 // sudo cp libmyfuns.dylib /usr/local/lib
@@ -189,7 +189,7 @@ const Clib = tempname()   # ... make a temporary file
 using Libdl
 tmplib = string(Clib,".",dlext)
 open(`gcc -fPIC -O3 -msse3 -xc -shared -o $tmplib -`, "w") do f
-    print(f, C_code) 
+    print(f, C_code)
 end
 
 # define a Julia function that calls the C function:
@@ -199,6 +199,7 @@ using Random
 randomize();
 c_pi(1000000)
 
+#= C code
 include <julia.h>
 #include <stdio.h>
 #include <math.h>
@@ -225,7 +226,7 @@ int main(int argc, char *argv[])
   double retD1 = jl_unbox_float64(ret1);
   double retD2 = jl_unbox_float64(ret2);
   double retD3 = retD1*retD2;
-  printf("sin(3.0)*exp(-0.3) from Julia API: %e\n", retD3); 
+  printf("sin(3.0)*exp(-0.3) from Julia API: %e\n", retD3);
   fflush(stdout);
 
 /* Allow Julia time to cleanup pending write requests etc. */
@@ -235,7 +236,7 @@ int main(int argc, char *argv[])
 
 
 # Can use a nice command script in 'share/julia/julia-config.jl
-./julia-config.jl 
+./julia-config.jl
 usage: julia-config [--cflags | --ldflags |
                      --ldlibs | --allflags]
 
@@ -253,6 +254,7 @@ cc jltest.c -o jltest -std=gnu99 \
       -Wl,-rpath,$JULIA_HOME/lib \
       -Wl,-rpath,$JULIA_HOME/lib/julia \
       -ljulia
+=#
 
 ./jltest
 sin(3.0)*exp(-0.3) from Julia API: 1.045443e-01
@@ -276,8 +278,8 @@ function curl_write_cb(curlbuf::Ptr{Nothing}, s::Csize_t, n::Csize_t, p_ctxt::Pt
   sz::Csize_t
 end
 
-c_curl_write_cb = 
-  @cfunction(curl_write_cb, Csize_t, 
+c_curl_write_cb =
+  @cfunction(curl_write_cb, Csize_t,
              (Ptr{Nothing}, Csize_t, Csize_t, Ptr{Nothing}));
 curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, c_curl_write_cb);
 
@@ -311,7 +313,7 @@ si.quad(x -> x*sin(x),1,π)
 
 # ... and plotting with matplotlib
 @pyimport matplotlib.pyplot as plt
-x = range(0,stop=10,length=1000); 
+x = range(0,stop=10,length=1000);
 y = sin.(3*x + 4*cos.(2*x));
 
 plt.plot(x, y, color="red", linewidth=2.0, linestyle="--")
@@ -357,7 +359,7 @@ a, x = symbols("a,x")
 eqn = y'(x) - 3*x*y(x) - 1
 
 # Solve this equation for x0 = 0 ...
-# and currying the function y0 -> a 
+# and currying the function y0 -> a
 #
 x0, y0 = 0, a
 out = dsolve(eqn, x, (y, x0, y0))
@@ -379,7 +381,7 @@ R"optim(0, $(x -> f(x)), method='BFGS')"
 
 @rlibrary MASS
 
- geyser = rcopy(R"MASS::geyser")  
+geyser = rcopy(R"MASS::geyser")
 
 round(sum(geyser[:waiting])/sum(geyser[:duration]),digits=5)
 
@@ -394,19 +396,19 @@ R"""
 library(data.table)
 library(scales)
 library(ggplot2)
-        
+
 link <- "fin_data.csv"
 dt <- data.table(read.csv(link))
 dt[, date := as.Date(date)]
-        
+
 # create indexed values
 dt[, idx_price := price/price[1], by = ticker]
 """
 
 R"""
-ggplot(dt, aes(x = date, y = idx_price, color = ticker)) + 
-       geom_line() + theme_bw() + 
-       xlab("Date") + ylab("Pricen(Indexed 2000 = 1)") + 
+ggplot(dt, aes(x = date, y = idx_price, color = ticker)) +
+       geom_line() + theme_bw() +
+       xlab("Date") + ylab("Pricen(Indexed 2000 = 1)") +
        scale_color_discrete(name = "Company")
 """
 
@@ -422,11 +424,11 @@ JavaCall.init(["-Xmx128M"])     # Initialise and ask for additional memory
 
  This works inside in a Notebook, despite the segmentation fault (on OSX)
  In the REPL, julia may nned to be started with a --handle-signals=no
- option to disable Julia's signal handler. 
+ option to disable Julia's signal handler.
  [This may cause issues with handling ^C in Julia programs.]
 =#
 
-# JavaCall needs to modify Julia variables before using them in functions  
+# JavaCall needs to modify Julia variables before using them in functions
 a = JString("Hello, Blue Eyes")
 
 # The JString as a single field (:ptr)
@@ -478,14 +480,14 @@ join(t)
 # Get a webpage using curl or wget
 # Notice the backticks
 # First check that curl (or wget) is available, ...
-# ... otherwise you will need to install it. 
+# ... otherwise you will need to install it.
 #
 cmd = `which curl`
 typeof(cmd)
 
 #=
  Commands now need to be run, i.e. they are not executed immediately
- Since commands run as separate tasks, it is usually preferable to 
+ Since commands run as separate tasks, it is usually preferable to
  suppress the output of the run() function
 
  The task output will goto STDOUT (by default) but can be captured
@@ -605,7 +607,7 @@ end
   Julia performance in handling string is not one of its greatest strenghs
   so munging large files can successfully done using Perl.
 
-  Note: 
+  Note:
   Julia has introduced an analytical engine (JuliaDB) to tackle the
   processing of large datasets, employing some clever memory management
   techniques and we will discuss this in the next chapter
@@ -619,11 +621,11 @@ cmd = `perl -nle 'print if $_ eq reverse && length > 5' /usr/share/dict/words`
 run(cmd);
 
 # Here is a work-around using temporary files
-# Capture the output of palindrome command and 
+# Capture the output of palindrome command and
 
 tmpfile = mktemp(tempdir());   # Alternative to tempfile() call
 cmd = `perl -nle 'print if $_ eq reverse && length > 5' /usr/share/dict/words`
-run(pipeline(cmd; stdout=tmpfile)); 
+run(pipeline(cmd; stdout=tmpfile));
 dmp = read(tmpfile);
 run(`rm -f $tmpfile`);  # Good idea to remove the temporary file
 
@@ -631,7 +633,7 @@ run(`rm -f $tmpfile`);  # Good idea to remove the temporary file
 (eltype(dmp),length(dmp))
 
 # Convert the byte array to a string
-# Note the carriage returns 
+# Note the carriage returns
 ss = String(dmp)
 
 # Remove the trailing \n and then split into words
@@ -696,14 +698,14 @@ poem
 
 # We are not limited to just Perl(5)
 # Get Perl6 from https://rakudo.org/files/
-# Put it on the path OR setup a symbolic link to the binary: 
+# Put it on the path OR setup a symbolic link to the binary:
 # viz: perl6 -> /Applications/Rakudo/bin/perl6
 
 run(`which perl6`);
 
 # Use Perl6 to find the line of the greatest length
 #
-run(`perl6 -e 'my $max=""; 
+run(`perl6 -e 'my $max="";
       for (lines) {$max = $_ if .chars > $max.chars};
       END { $max.say }' hunting-the-snark.txt`);
 
@@ -728,7 +730,7 @@ run(`cat $f2`);
 
 # Now reverse the process
 #
-run(`base64 --decode $f2`); 
+run(`base64 --decode $f2`);
 
 
 cd(string(ENV["HOME"],"/PacktPub/Chp05")); # You may have to change this
@@ -764,7 +766,7 @@ end
 
 @traprun `wc $(filter(r"\.txt$"))`;
 
-# Find all the Jupyter notebooks 
+# Find all the Jupyter notebooks
 cd("..")
 @traprun `find "/Users/malcolm/PacktPub" -name Chp\*.ipynb`;
 

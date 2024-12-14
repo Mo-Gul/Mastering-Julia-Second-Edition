@@ -8,7 +8,7 @@ using InteractiveUtils
 using Markdown
 
 # ╔═╡ 52d9b84f-03ee-4b55-a262-d229e9ed9437
-using Plots; 
+using Plots;
 
 # ╔═╡ 0d2d072c-18bc-4b2e-8aba-f69953281f5c
 plotly()
@@ -47,10 +47,10 @@ x = collect(0:T);
 begin
   for k = 1:5
     S = zeros(Float64,N)
-	S[1] = S0;
-	dW = randn(N)*sqrt(dt);
-	[S[t] = S[t-1] * (1+(r-q-0.5*v*v)*dt + v*dW[t] + 0.5*v*v*dW[t]*dW[t]) for t=2:N]
-	plot!(x,S)
+    S[1] = S0;
+    dW = randn(N)*sqrt(dt);
+    [S[t] = S[t-1] * (1+(r-q-0.5*v*v)*dt + v*dW[t] + 0.5*v*v*dW[t]*dW[t]) for t=2:N]
+    plot!(x,S)
   end
   plot!(legend=false)
   plot!(title="Asian Option - Random Walks")

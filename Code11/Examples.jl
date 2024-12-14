@@ -3,14 +3,14 @@
 #= Packages which I usually need and are in Base so add them here. =#
 using Pkg, Printf, Random, REPLHistory
 
-#= I use this to check for installed packages in my setup.jl, 
-it is a little more verbose since the haskey() function was deprecated =#  
+#= I use this to check for installed packages in my setup.jl,
+it is a little more verbose since the haskey() function was deprecated =#
 
  isinstalled(pkg::String) =
   any(x -> x.name == pkg && x.is_direct_dep,
                      values(Pkg.dependencies()))
 
-#= Julia has some pseudo Unix commands such as cd, pwd, 
+#= Julia has some pseudo Unix commands such as cd, pwd,
    mkdir, rm, but these are missing – these can, of course,
    be run in shell mode =#
 
@@ -19,7 +19,7 @@ ls(dir::String = ".") = run(`ls -l $dir`)
 cat(fname::String )   = run(`cat $fname`)
 more(fname::String )  = run(`more $fname`)
 
-# A little superfluous perhaps 
+# A little superfluous perhaps
 pwup(x, p::Number)  = x*p
 pwup(x::Array)  = x.*p
 sq(x)     = pwup(x, 2)
@@ -36,7 +36,7 @@ macro PkgSetup()
   Pkg.instantiate()
 end
 
-# … and one to execute an ‘immediate’ if statement. 
+# … and one to execute an ‘immediate’ if statement.
 macro iif(cond,doit)
   if (eval(cond)) doit end
 end
@@ -48,7 +48,7 @@ function linspace(x0::Real, x1::Real, N::Integer)
   return collect(x0:h:x1)
 end
 
-#= Another way to activate folders, automatically when 
+#= Another way to activate folders, automatically when
    Julia starts by defining a new environment variable
    in the user’s shell start up file =#
 if haskey(ENV,"JULIA_ACTIVATE") &&
@@ -76,7 +76,7 @@ let
     while i < nargs
       i += 1
       s = ARGS[i]
-      if s == "-h" 
+      if s == "-h"
         hflag = true
       elseif s == "-d"
         (i < nargs) && begin
@@ -94,7 +94,7 @@ let
   if hflag
     println(USAGE)
   else
-    efind = 
+    efind =
       `find $dir -type f -iname "*" -exec du -sh "{}" + `
     println("Directory: $dir")
     try
@@ -131,12 +131,12 @@ Pkg.add("Gadfly");
 Pkg.add("RDatasets")
 create_sysimage([:Gadfly, :RDatasets];
                 sysimage_path="sys_Gadfly.dylib")
-                 
+
 julia> using Gadfly, RDatasets
-#= 
+#=
 To create the plot we are required to push the Gadfly backend
 into the O/S memory stack
-=# 
+=#
 
 pushdisplay(Gadfly.GadflyDisplay());
 iris = dataset("datasets", "iris"); first(iris,4)
@@ -148,7 +148,7 @@ display(d)
 ### [Panto.jl source] ###
 
 """
-Calculate the sum of the series i/(i+1)^2 using the genie function for an integer 
+Calculate the sum of the series i/(i+1)^2 using the genie function for an integer
 i in the range [1:n].
 """
 function aladdin(n::Integer)
@@ -160,25 +160,25 @@ function aladdin(n::Integer)
   return s
 end
 """
-Compute the value of the expression x/(x+1)^k where x is a numeric and k is a 
+Compute the value of the expression x/(x+1)^k where x is a numeric and k is a
 (non-complex) number.
-""" 
+"""
 genie(x,k) = x/(x+1)^k
 const N_THIEVES = 40; # Ali Baba has 40 thieves in the fairy story.
 """
-Compute and store the items using Aladdin's genie storing each partial sum of the 
+Compute and store the items using Aladdin's genie storing each partial sum of the
 series i/(i+1)^2 in an array upto a value of 40.
 
-So the preferable count to choose is a multiple of 40 in order to capture the 
+So the preferable count to choose is a multiple of 40 in order to capture the
 final value sum of the series in the array.
 """
 function alibaba(n::Integer)
    @assert n >= N_THIEVES
    s = 0.0
    k = n/N_THIEVES
-#= 
-We could define a fixed array but for only 41 items in since the Ali Baba band 
-has 40 thieves, so push values instead 
+#=
+We could define a fixed array but for only 41 items in since the Ali Baba band
+has 40 thieves, so push values instead
 =#
    a = Float64[]
    push!(a,s)
@@ -189,9 +189,9 @@ has 40 thieves, so push values instead
    return a
 end
 
-# panto() function just directs the users to the contents and their help. 
+# panto() function just directs the users to the contents and their help.
 function panto()
-  helptxt = """Help is available on each of the individual pantomime characters: 
+  helptxt = """Help is available on each of the individual pantomime characters:
 alibabi, aladdin, genie."""
   println(helptxt);
 end
@@ -245,7 +245,7 @@ include("panto.jl")
 @profilehtml alibaba(10^6);
 
 function alibaba_2(n::Integer)
-  @assert n > 0   
+  @assert n > 0
   s = 0.0
   a = Array{Float64}(undef, 41)
   a[1] = s
@@ -274,11 +274,11 @@ b2 = alibaba_2(3);   # Argument is 3 since it is multiplied by 40
 module Funky
 using HTTP, CSV, DataFrames, TimeSeries, IndexedTables
 using Printf, Dates, Statistics
-const PUNCTS = 
-       [' ','\n','\t',','.',',',':',';','!','?','\'','"'];
+const PUNCTS =
+    [' ','\n','\t','-','.',',',':',';','!','?','\'','"'];
 include("ftop.jl")
 include("queens.jl")
-include("quandl.jl")
+include(joinpath(".", "Funky", "src", "quandl.jl"))
 include("panto.jl")
 
 """
@@ -307,16 +307,17 @@ horner_c = ccall((:horner,"libmyfuns.dylib"), Cdouble,
 macro bmk(fex, n::Integer)
   quote
     let s = 0.0
-    if $(esc(n)) > 0
-      val = $(esc(fex))
-      for i = 1:$(esc(n))
-        local t0 = Base.time_ns()
-        local val = $(esc(fex))
-        s += Base.time_ns() - t0
+      if $(esc(n)) > 0
+        val = $(esc(fex))
+        for i = 1:$(esc(n))
+          local t0 = Base.time_ns()
+          local val = $(esc(fex))
+          s += Base.time_ns() - t0
+        end
+        return s/($(esc(n)) * 10e9)
+      else
+        Base.error("Number of trials must be positive")
       end
-      return s/($(esc(n)) * 10e9)
-    else
-      Base.error("Number of trials must be positive")
     end
   end
 end
@@ -326,15 +327,3 @@ export isdate, wordcount, filter, ftop, quandl
 export @traprun, @bmk, @until
 
 end
-
-
-
-
-
-
-
-
-
-
-
-

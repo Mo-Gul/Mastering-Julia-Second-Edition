@@ -10,11 +10,11 @@ using GLM, HypothesisTests, KernelDensity, Clustering
 
 using Statistics, Printf, Dates, DelimitedFiles
 
- write(stdout, "Help ME!!!\n")
+write(stdout, "Help ME!!!\n")
 
 write(stderr,"Error messages should come here.")
 
-#= 
+#=
 read(stdin) will not work in a Jupyter notebook
 
 It is possible to use a terminal
@@ -22,8 +22,8 @@ It is possible to use a terminal
 Use File/Open and choose New->Terminal from the pulldowmn menu
 Run the Julia REPL
 
-TIP: 
-On my system (OSX) I have setup the following symbolic link in my 
+TIP:
+On my system (OSX) I have setup the following symbolic link in my
 ~/bin folder (which is on the executable path)
 
 julia -> /Applications/Julia-1.0.app/Contents/Resources/julia/bin/julia
@@ -36,7 +36,7 @@ read(stdin,String)      - type a string + ^D (CR is part of the string)
 read(stdin,Int32)       - type a number + CR
 read(stdin,UInt32)      - type same number + CR
 readline(stdin)         -   "    "    "       "
-
+=#
 
 # However readline will work in Julia
 a = readline()
@@ -47,8 +47,8 @@ function getInt()
     s = chomp(readline())
     try
         parse(eltype(1),s)
-    catch ex 
-        println(ex, "\nCan't convert $s to an integer")       
+    catch ex
+        println(ex, "\nCan't convert $s to an integer")
     end
 end
 
@@ -90,7 +90,7 @@ isfile(flip)
 
 
 # Classic paradigm
-# This prints the first 4 lines of the Jabberwocky 
+# This prints the first 4 lines of the Jabberwocky
 # We need the let/end because of the new scoping rules
 let
     fin = open(flip)
@@ -105,22 +105,22 @@ end
 
 
 # Because file processing is a common process Julia has an alternative syntax
-# Note jabber4.txt is just the first verse of the Jabberwocky, save us having to count 
+# Note jabber4.txt is just the first verse of the Jabberwocky, save us having to count
 # and break to reduce the output
 
 flp4 = ENV["HOME"]*"/MJ2/Alice/jabber4.txt";
 
 open(flp4) do pn4
   while !eof(pn4)
-     println(readline(pn4))
+    println(readline(pn4))
   end
 end
 
 
 # The file handle is not defined after the loop, so does not need to be closed.
-julia> eof(pn4)
+eof(pn4)
 
-#= 
+#=
 Conveniently we can read all a file in to a variable without explicitly opening it
 Note that at the data is returned as a byte array (the file may be a binary)
 =#
@@ -135,7 +135,7 @@ jb4 = String(read(flp4))
 capitalize(f::IOStream) = chomp(uppercase(String(read(f))));
 split(open(capitalize, flp4),"\n")
 
-# We need the chomp() to remove the "\n" in the last line, 
+# We need the chomp() to remove the "\n" in the last line,
 # otherwise a 5-element array would be returned with the last element "".
 
 
@@ -165,7 +165,7 @@ function wordcount(text)
   wds = split(lowercase(text), PUNCTS; keepempty = false)
   d = Dict()
   for w = wds
-     d[w] = get(d,w,0)+1
+    d[w] = get(d,w,0)+1
   end
   return d
 end
@@ -218,7 +218,7 @@ end
 # Set the correct directory and open the Juliaset
 # Read the first line for the "magic" number
 
-cd(ENV["HOME"]*"/MJ2/Chp06"); 
+cd(ENV["HOME"]*"/MJ2/Chp06");
 img = open("Files/juliaset.pgm");
 magic = chomp(readline(img))
 
@@ -242,7 +242,7 @@ if magic == "P5"
   readbytes!(img, buf, np);
 # Invert the gra
   bufX = [UInt8(255 - buf[i]) for i = 1:np]
-  write(out,bufX))
+  write(out,bufX)
   close(out);
 else
   error("Not a NetPBM grayscale file")
@@ -264,12 +264,12 @@ function pseudocolor(pix)
     pg = UInt8(min(4*(256 - pix),255))
     pb = UInt8(0)
   end
-  return (pr, pg, pb) 
+  return (pr, pg, pb)
 end
 
 pseudocolor(0xa1)
 
-cd(ENV["HOME"]*"/MJ2/Chp06"); 
+cd(ENV["HOME"]*"/MJ2/Chp06");
 img = open("Files/juliaset.pgm");
 magic = chomp(readline(img))
 
@@ -406,7 +406,7 @@ h5file = "Files/mydata.h5"
 aa = [u + v*rand() for u = 0.5:0.5:10.0, v = 0.5:0.5:6.0]
 
 h5open(h5file, "w") do f
-    write(f, "aa", aa) 
+    write(f, "aa", aa)
 end
 
 # Alternatively, we can say "@write h5file aa" or else h5write(h5file,"aa",aa)
@@ -471,25 +471,25 @@ end
 
 using Dates
 for c in child_nodes(xtop)
-   if is_elementnode(c)
-      e = XMLElement(c)
-      t = find_element(e, "title")
-      genre = attribute(t, "genre")
-      if genre == "Computing"
-         a = find_element(e,"author")
-         p = find_element(e,"price")
-         curr = attribute(p, "currency")
-         d = find_element(e,"publish_date")
-         dc = DateTime(content(d))
-         ds = string(day(dc)," ",monthname(dc)," ",year(dc))
-         desc = find_element(e,"description")
-         println("Title:      ", content(t))
-         println("Author:     " ,content(a))    
-         println("Date:       " ,ds)
-         println("Price:      " ,p ," (", curr, ")")
-         println(content(desc),"\n");
-      end
-   end
+  if is_elementnode(c)
+    e = XMLElement(c)
+    t = find_element(e, "title")
+    genre = attribute(t, "genre")
+    if genre == "Computing"
+      a = find_element(e,"author")
+      p = find_element(e,"price")
+      curr = attribute(p, "currency")
+      d = find_element(e,"publish_date")
+      dc = DateTime(content(d))
+      ds = string(day(dc)," ",monthname(dc)," ",year(dc))
+      desc = find_element(e,"description")
+      println("Title:      ", content(t))
+      println("Author:     " ,content(a))
+      println("Date:       " ,ds)
+      println("Price:      " ,p ," (", curr, ")")
+      println(content(desc),"\n");
+    end
+  end
 end
 
 #-------------------------------------------------------------------------
@@ -520,7 +520,7 @@ scatter(depth,mags)
 describe(mags)
 
 mags = Float64.(quakes[:Mag]);
-(m1, m2, m3, m4) = map(x -> round(x,digits=4), 
+(m1, m2, m3, m4) = map(x -> round(x,digits=4),
               [mean(mags), std(mags), skewness(mags), kurtosis(mags)]);
 
 using Printf
@@ -549,7 +549,7 @@ writtenM = collect(skipmissing(mlmf[mlmf.Gender .== "M", :Written]));
 (nWM, nWF) = (length(writtenM), length(writtenF))
 
 σW = sqrt((σWM*σWM)/(nWM - 1) + (σWF*σWF)/(nWF - 1))
-tt = round(abs(σWM - σWF)/σW , digits=4)    
+tt = round(abs(σWM - σWF)/σW , digits=4)
 
 # p ~ 0.33; 95% ~ 0.06, 90% ~ 0.13
 0.9726
@@ -564,9 +564,9 @@ courseM = collect(skipmissing(mlmf[mlmf.Gender .== "M", :Course]));
 (nCM, nCF) = (length(writtenM), length(writtenF))
 
 σC = sqrt((σCM*σCM)/(nCM - 1) + (σCF*σCF)/(nCF - 1))
-tt = round(abs(σCM - σCF)/σC , digits=4)    
+tt = round(abs(σCM - σCF)/σC , digits=4)
 
-# p ~ 0.33; 95% ~ 0.06, 90% ~ 0.13 
+# p ~ 0.33; 95% ~ 0.06, 90% ~ 0.13
 
 
 #-------------------------------------------------------------------------
@@ -578,9 +578,9 @@ mlmf = dataset("mlmRev", "Gcsemv");
 df = mlmf[completecases(mlmf[[:Written, :Course]]), :]
 
 macro F64(sym)
-    quote
-      Float64.(skipmissing(Array($sym)))
-    end
+  quote
+    Float64.(skipmissing(Array($sym)))
+  end
 end
 
 dc = @F64 df[:Course];
@@ -600,12 +600,12 @@ PyPlot.plot(kdc.x, kdc.density)
 PyPlot.plot(kdw.x, kdw.density, linestyle="--")
 
 for subdf in groupby(df, :School)
-  (size(subdf)[1] > 40) &&  
+  (size(subdf)[1] > 40) &&
     let
-     sch = subdf[:School][1]
-     msw = mean(subdf[:Written]) 
-     msc = mean(subdf[:Course])
-     @printf "%10s : %8.4f %8.4f\n" sch msw msc
+      sch = subdf[:School][1]
+      msw = mean(subdf[:Written])
+      msc = mean(subdf[:Course])
+      @printf "%10s : %8.4f %8.4f\n" sch msw msc
     end
 end
 
@@ -686,7 +686,7 @@ PyPlot.plot(timestamp(cl),values(cl))
 # see: https://fred.stlouisfed.org
 #
 # As with the ohlc dataset fred() returns a default series, the US CPI
-# 
+#
 cpi =  fred()
 vcat(cpi[1:3],cpi[end-2:end])
 
@@ -715,5 +715,3 @@ aapl_spread = aaplts[:High] - aaplts[:Low]
 describe(aapl_spread.values[:,1])
 
 plot(aapl_spread.index,aapl_spread.values[:,1])
-
-

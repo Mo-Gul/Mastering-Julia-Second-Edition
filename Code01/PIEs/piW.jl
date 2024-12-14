@@ -5,13 +5,12 @@ K = 0;
 
 while (true)
   for i in 1:N
-   if sumsq(rand(), rand()) < 1.0
+    if sumsq(rand(), rand()) < 1.0
       K += 1
-   end
+    end
   end
   break
 end
 
 P = 4.0*(K / N);
 println("Estimate of PI for $N trials is $P")
-
