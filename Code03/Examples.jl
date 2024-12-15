@@ -274,7 +274,7 @@ y2 = Skiff(postal,"Dufour 44", 13.47)
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-# This module uses Float64 components but could use a parameterised type {T}
+# This module uses Float64 components but could use a parameterized type {T}
 #
 module V3D
 
@@ -380,7 +380,7 @@ z1 + z2
 zn = norm(z1 + z2)        # => sqrt(116) but IS a complex number.
 @assert zn == sqrt(116)
 
-# Notice that the vaule is returned as a complex.
+# Notice that the value is returned as a complex.
 zn
 
 r1 = Vec3P{Rational}(11//7,13//5,8//17)

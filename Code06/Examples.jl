@@ -19,7 +19,7 @@ read(stdin) will not work in a Jupyter notebook
 
 It is possible to use a terminal
 
-Use File/Open and choose New->Terminal from the pulldowmn menu
+Use File/Open and choose New->Terminal from the pulldown menu
 Run the Julia REPL
 
 TIP:
@@ -83,7 +83,7 @@ If neither keywords of a mode string are given then the default is to open the f
 
 #-------------------------------------------------------------------------
 
-# Discuss diffence between s1*s2 vs String(s1,s2)
+# Discuss difference between s1*s2 vs String(s1,s2)
 
 flip = ENV["HOME"]*"/MJ2/Alice/jabberwocky.txt";
 isfile(flip)
@@ -142,7 +142,7 @@ split(open(capitalize, flp4),"\n")
 # In the previous chapter we used Perl to reverse a lines of a poem.
 # Here is a native Julia version
 
-open( flp4) do pn4
+open(flp4) do pn4
     while !eof(pn4)
         println(reverse(chomp(readline(pn4))))
     end
@@ -155,7 +155,7 @@ end
 # In this routine only the words or counted
 # Actually this is the most difficult, counting lines and characters are easy
 
-# We will split on white space and also pinctation marks
+# We will split on white space and also punctuation marks
 
 const PUNCTS =  [' ','\n','\t','-','.',',',':',';','!','?','\'','"'];
 
@@ -395,8 +395,8 @@ plot(dt, aaplClose)
 title("Apple Stock - Closing Price")
 
 
-aaplDifs = [(aaplClose[i] - aaplOpen[i]) for i = 1:NAAPL]
-plot(dt,aaplDifs)
+aaplDiffs = [(aaplClose[i] - aaplOpen[i]) for i = 1:NAAPL]
+plot(dt,aaplDiffs)
 title("Apple Stock - Daily Change")
 
 using JLD, HDF5
@@ -424,7 +424,7 @@ rm(aapljld, force=true)
 jldopen(aapljld, "w") do fid
   write(fid,"aaplDate",aaplDate)
   write(fid,"aaplClose",aaplClose)
-  write(fid,"aaplDifs",aaplDifs)
+  write(fid,"aaplDiffs",aaplDiffs)
 end
 
 isfile(aapljld)
@@ -432,22 +432,22 @@ isfile(aapljld)
 fid = jldopen(aapljld, "r")
 
 aaDate = read(fid, "aaplDate")
-aaDifs = read(fid, "aaplDifs")
+aaDiffs = read(fid, "aaplDiffs")
 close(fid)
 
 fid = jldopen("Files/myaapl.jld", "w")
 g = g_create(fid, "aapl")
 g["aaplDate"]  = aaplDate
 g["aaplClose"] = aaplClose
-g["aaplDifs"]  = aaplDifs
+g["aaplDiffs"]  = aaplDiffs
 
 dump(fid)
 
 g = fid["aapl"]
-adf = g["aaplDifs"]
+adf = g["aaplDiffs"]
 close(fid)
 
-# Alternatively: adf = fid["aapl/aaplDifs"]
+# Alternatively: adf = fid["aapl/aaplDiffs"]
 
 using LightXML
 xdoc = parse_file("Files/books.xml");

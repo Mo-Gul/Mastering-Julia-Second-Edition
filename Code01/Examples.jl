@@ -4,7 +4,7 @@ using BenchmarkTools, UnicodePlots, PythonPlot
 
 sumsq(x,y) = x*x + y*y;
 
-# Set the number of trials and initialise the counter
+# Set the number of trials and initialize the counter
 # Using zero(Integer) will ensure the counter is an integer
 
 N = 10^8;

@@ -96,7 +96,7 @@ lx.finish()
 import PyPlot
 const py = PyPlot
 
-# Plot a modulated sinusiod
+# Plot a modulated sinusoid
 x = collect(range(0.0, stop=2pi, length=1000))
 y = sin.(3*x + 4*cos.(2*x));
 
@@ -110,7 +110,7 @@ py.surf(y, y, y.*sin.(y).*cos.(y)'.*exp.(-0.4y))
 
 #=
   Create a plot using the XKCD "comic" mode from Python's Matplotlib.
-  SO the xkcd() routine must be available in the (default) Python insatllation
+  SO the xkcd() routine must be available in the (default) Python installation
 =#
 py.xkcd()
 x = collect(range(1, length=101, stop=10));

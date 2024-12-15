@@ -187,7 +187,7 @@ println(out,params);
 write(out,dout);
 close(out);
 
-# This only works if you have Imagemagick (or similar) installed
+# This only works if you have ImageMagick (or similar) installed
 run(`display lenaX.pgm`);
 
 using Plots; gr()
@@ -345,7 +345,7 @@ hs([1.0,1.0])
 # It is possible to output the symbolic version of the derivate
 differentiate("sin(x)*cos(x)", :x)
 
-# Not that clear but can be simplfied somewhat
+# Not that clear but can be simplified somewhat
 # ... although not entirely perfect.
 simplify(differentiate("sin(x)*cos(x)", :x))
 
@@ -423,7 +423,7 @@ quadgk(f,0.0,1.0)
 
 #=
 Addition function gives points and weights over the interval [-1,1]
-Pick a sigmodial function : 1 - x exp(-|x|)
+Pick a sigmoidal function : 1 - x exp(-|x|)
 =#
 g(u) = 1 - u*exp(-abs(u))
 
@@ -436,7 +436,7 @@ PyPlot.plot(x,y)
 (x,w) = gauss(20)
 s = sum([w[i]*g(x[i]) for i = 1:20])
 
-# Alternate package which will do multidimension quadratutes
+# Alternate package which will do multidimension quadratures
 # Written by Steven Johnson (of PyCall, IJulia, etc. )
 # It also does 1-D integration
 
@@ -522,7 +522,7 @@ QUEUE_MAX     = 2      # Maximum size of queue
 μ = 0.4                # service rate
 λ = 0.9                # arrival rate
 
-arrival_dist = Exponential(1/λ)  # interarrival time distriubtion
+arrival_dist = Exponential(1/λ)  # interarrival time distribution
 service_dist = Exponential(1/μ)  # service time distribution
 
 iseed = ccall((:clock,"libc"),Int32,())
@@ -566,7 +566,7 @@ sim     = Simulation()
 service = Resource(sim, NUM_TELLERS)
 
 # initialize customers and set arrival time
-# customers arrive randomly baed on Poisson distribution
+# customers arrive randomly based on Poisson distribution
 arrival_time = 0.0
 for i = 1:NUM_CUSTOMERS
     arrival_time += rand(arrival_dist)

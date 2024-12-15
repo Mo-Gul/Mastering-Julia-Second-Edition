@@ -27,7 +27,7 @@ sqroot(x) = pwup(x, 0.5)
 cb(x)     = pwup(x, 3)
 cbroot(x) = pwup(x, 1//3)
 
-# Defined in the book, so I have aded them here.
+# Defined in the book, so I have added them here.
 mad2(a,b,c) = a*b + c
 systime()   = ccall((:time, "libc"), Int32, ());
 # A macro to activate and instantiate the current directory
@@ -123,7 +123,7 @@ end
 println("Length of modified ARGS array: ", size(ARGS))
 
 
-# [Create Gadfly system image and use it to retrieve iris dataset and displayit]
+# [Create Gadfly system image and use it to retrieve iris dataset and display it]
 
 using PackageCompiler
 import Pkg; Pkg.activate(".")
@@ -167,7 +167,7 @@ genie(x,k) = x/(x+1)^k
 const N_THIEVES = 40; # Ali Baba has 40 thieves in the fairy story.
 """
 Compute and store the items using Aladdin's genie storing each partial sum of the
-series i/(i+1)^2 in an array upto a value of 40.
+series i/(i+1)^2 in an array up to a value of 40.
 
 So the preferable count to choose is a multiple of 40 in order to capture the
 final value sum of the series in the array.
@@ -211,7 +211,7 @@ for i in 1:4
  @show (k, round(X[end], digits=5))
 end
 
-# Calcuate timing for one large number of trials
+# Calculate timing for one large number of trials
 @benchmark(alibaba(4*10^9), samples=1, evals=1)
 
 

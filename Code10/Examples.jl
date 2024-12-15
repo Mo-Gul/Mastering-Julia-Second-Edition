@@ -461,7 +461,7 @@ da.indices
 i = rand(1:100); j = rand(1:100); (i,j)
 bb[i,j] == db[i,j]
 
-# . . . and that the overall sum of all the 10000 Bessel functions is the same
+# ... and that the overall sum of all the 10000 Bessel functions is the same
 abs(sum(bb) - sum(db))
 
 

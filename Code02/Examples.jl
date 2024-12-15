@@ -39,7 +39,7 @@ Y = f.(X)
 # Of course this could also be done without the temporary function
 Y = X .* sin.(3.0 .* X) .* exp.(- 0.03 .* X)
 
-# First 15 Fibonnaci series
+# First 15 Fibonacci series
 
 A = Array{Int64}(undef,15);
 A[1]=1
@@ -62,7 +62,7 @@ for i = 1:30
   @pf.printf "%3d : %d \n" i fac(i)
 end
 
-# But since a BigInt <: Integer if we pass a BigInt the reoutine returns one
+# But since a BigInt <: Integer if we pass a BigInt the routine returns one
 #
 fac(big(30))
 
@@ -165,7 +165,7 @@ bacs()
 
 # Look at different definitions of the norm function
 # For a Gaussian distribution of size N we should expect the answer ~= √N
-# The first call f1(1) is to run in the function and not affext the timing
+# The first call f1(1) is to run in the function and not affect the timing
 # This version uses the function in Base
 
 import LinearAlgebra:norm
@@ -206,7 +206,7 @@ end
 f4(10);
 @time f4(100_000_000)
 
-# Generate primes with Sieve of Eratoshenes
+# Generate primes with Sieve of Eratosthenes
 #
 # Define a helper function and then the actual sieve.
 
@@ -228,7 +228,7 @@ end
 tm = @elapsed A = erato(1_000_000);
 print("Computed $(length(A)) primes in $(round(tm, digits=4)) sec.")
 
-# Compute primorials for all primes upto 50
+# Compute primorials for all primes up to 50
 # Note need to use BigInts as the cumulative product gets large.
 
 unique([foldr(*,erato(n),init=BigInt(1)) for n in 2:50])

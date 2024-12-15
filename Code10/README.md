@@ -24,4 +24,4 @@ Use the *setup.jl* script to create new project files, deleting any existing one
 
 This can either be run from the command line as *julia setup.jl* or using *include("setup.jl")* in the REPL.
 
-The first time the directory is activated it is advised to <u>instantiate</u> it to bring the installed packages uptodate with the current version of Julia.
+The first time the directory is activated it is advised to <u>instantiate</u> it to bring the installed packages up-to-date with the current version of Julia.

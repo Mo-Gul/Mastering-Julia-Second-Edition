@@ -21,7 +21,7 @@ const N_THIEVES = 40; # Ali Baba has 40 thieves in the fairy story.
 
 """
 Compute and store the items using Aladdin's genie storing each partial sum
-of the series i/(i+1)^2 in an array upto a value of 40.
+of the series i/(i+1)^2 in an array up to a value of 40.
 
 So the preferable count to choose is a multiple of 40 in order to
 capture the final value sum of the series in the array.

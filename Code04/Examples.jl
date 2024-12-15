@@ -119,7 +119,7 @@ i = 0; @dotimes 3 [global i += 1; println(i*i)]
 # Expand the @assert function
 macroexpand(Main,:(@assert n > 0))
 
-# Expand our @dotimes function, whic is somewhat simpler
+# Expand our @dotimes function, which is somewhat simpler
 #
 macroexpand(Main,:(@dotimes 3 [global i += 1; println(i*i)]))
 
@@ -372,7 +372,7 @@ isprime(n) =
     any; !
   end;
 
-# We need to initialise the primes list
+# We need to initialize the primes list
 #
 primes = filter(isprime, range(2));
 take(20, primes)
