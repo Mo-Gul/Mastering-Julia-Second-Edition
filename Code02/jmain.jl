@@ -1,6 +1,6 @@
 # Program to create a Julia set on disk which can be run from command line.
 
-# Include main function (jset.jl) and routine to create the disk file. 
+# Include main function (jset.jl) and routine to create the disk file.
 # This does not require use of Images and ImgView packages and so is quicker.
 
 include("jset.jl")
@@ -23,6 +23,6 @@ end
 t1 = time();
 
 # Save image on disk and output execution time.
-   
+
 create_pgmfile(m, pgm_name);
 print("Written $pgm_name\nFinished in $(round((t1-t0),digits = 4)) seconds.\n");

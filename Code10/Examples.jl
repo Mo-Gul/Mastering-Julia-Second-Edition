@@ -246,7 +246,7 @@ function extractlinks(elem, links)
 
     url = getattr(elem, "href")
     startswith(url,"/") &&
-         length(url) > 1 && push!(links,url)
+        length(url) > 1 && push!(links,url)
   end
   for child in children(elem)
     extractlinks(child, links)
@@ -280,7 +280,7 @@ end
 
 using Genie.Renderer.Json
 route("/playing") do
-   json("Play it again, Sam") |> json
+  json("Play it again, Sam") |> json
 end
 
 resp = HTTP.get("http://localhost:8888/playing");
@@ -511,11 +511,11 @@ count = 0
 for r in eachrow(dj)
   count += 1
   (count == 1) &&
-     @printf "%10s   %s\n" "Team" "Shot success"
+    @printf "%10s   %s\n" "Team" "Shot success"
   team = r[:team]
   if team in ["England","Germany","North Korea","USA"]
-       goals = r[:goalsFor]
-       shots = r[:Shots]
-       @printf("%12s %6.2f %%\n", team, pc(goals,shots))
-    end
+    goals = r[:goalsFor]
+    shots = r[:Shots]
+    @printf("%12s %6.2f %%\n", team, pc(goals,shots))
   end
+end

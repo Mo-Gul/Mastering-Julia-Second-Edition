@@ -59,7 +59,7 @@ eval(ex1)
 
 # i.e.  @eval $(ex) === eval(ex)
 
-# Although ex1 and ex2 are equivalent the AST of the expression 
+# Although ex1 and ex2 are equivalent the AST of the expression
 # is slightly different
 # Here it is for ex1, we leave ex2 to the reader
 #
@@ -73,8 +73,8 @@ Meta.show_sexpr(ex1)
 #
 function traverse!(ex, symbols) end
 
-function traverse!(ex::Symbol, symbols) 
-    push!(symbols, ex) 
+function traverse!(ex::Symbol, symbols)
+    push!(symbols, ex)
 end
 
 function traverse!(ex::Expr, symbols)
@@ -89,17 +89,17 @@ function traverse!(ex::Expr, symbols)
     end
 end
 
-function traverse(ex::Expr) 
+function traverse(ex::Expr)
     symbols = Symbol[]
-    traverse!(ex, symbols) 
+    traverse!(ex, symbols)
     return unique(symbols)  # Don't output duplicate
 end
 
 traverse(ex1)
 
 macro pout(n)
-    if typeof(n) == Expr 
-       println(n.args)
+    if typeof(n) == Expr
+        println(n.args)
     end
     return n
 end
@@ -189,8 +189,8 @@ end
 [kempner(10^i) for i in 1:7]
 
 macro bmk(fex, n::Integer)
-    quote 
-      let s = 0.0
+  quote
+    let s = 0.0
       if $(esc(n)) > 0
         val = $(esc(fex))
         for i = 1:$(esc(n))
@@ -280,7 +280,7 @@ end
 # i.e evaluates as :
 3//11 * 5//11 - 8//11
 
-macro q(s)     
+macro q(s)
   s0 = eval(s)
   try
     if length(s0) > 0
@@ -290,13 +290,13 @@ macro q(s)
       end
     end
   catch
-    return  
+    return
   end
 end
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-# The postwalk function splits an expression into symbols and then 
+# The postwalk function splits an expression into symbols and then
 # reconstructs it, so we can apply different operations to each symbol
 
 using MacroTools:postwalk
@@ -312,7 +312,7 @@ eval(p)
 map(x -> @show(x), [1,2,3,4]);
 
 postwalk(ex) do x
-         @show x
+    @show x
 end
 
 @capture(ex, a_ + b_ + c_)
@@ -463,7 +463,7 @@ Base.show(io::IO, k::ModInt{n}) where n =
 -(a::ModInt{n}) where n = ModInt{n}(-a.k)
 
 inv(a::ModInt{n}) where n = ModInt{n}(invmod(a.k, n))
-(a::ModInt{n} / b::ModInt{n}) where n = a*inv(b) 
+(a::ModInt{n} / b::ModInt{n}) where n = a*inv(b)
 
 Base.promote_rule(::Type{ModInt{n}}, ::Type{Int}) where n = ModInt{n}
 Base.convert(::Type{ModInt{n}}, i::Int) where n = ModInt{n}(i)
@@ -476,7 +476,7 @@ end
 using Main.ModInts
 m1 = ModInt{11}(2)
 m2 = ModInt{11}(7)
-m3 = 3*m1 + m2  # => mod(13,11) => 2 
+m3 = 3*m1 + m2  # => mod(13,11) => 2
 
 # Because of multiple dispatch we can do the following
 #
@@ -539,9 +539,9 @@ promote_rule(::Type{OrdPair}, ::Type{<:Number}) = OrdPair
 
 ## show(io::IO,u::OrdPair) = print(io,value(u)," + (",epsilon(u),")ϵ")
 
-function show(io::IO,u::OrdPair) 
- op::String = (epsilon(u) < 0.0) ? " - " : " + ";
- print(io,value(u),op,abs(epsilon(u)),"ϵ")
+function show(io::IO,u::OrdPair)
+  op::String = (epsilon(u) < 0.0) ? " - " : " + ";
+  print(io,value(u),op,abs(epsilon(u)),"ϵ")
 end
 
 end
@@ -570,5 +570,3 @@ p4 = OrdPair(2.3, 11.0 + 7.2im)
 
 # Also a number of other arithmetic functions need to be imported from Base
 std(p1)
-
-

@@ -9,7 +9,6 @@ println("Short list :: ", short_list)
 println("Long list  :: ", long_list, "\n")
 
 for (opt, arg) in getopt(ARGS, short_list, long_list)
-   @show (opt, arg)
+  @show (opt, arg)
 end
 println("Length of modified ARGS array: ", size(ARGS))
-

@@ -122,7 +122,7 @@ end
 # Is a built-in constant in Julia
 Base.MathConstants.golden
 
-# Reseed the random number generator: 
+# Reseed the random number generator:
 # rng will give a reproducible sequence of numbers
 # if and only if a seed is provided
 
@@ -130,7 +130,7 @@ using Unicode
 function bacs()
   bulls = cows = turns = 0
   a = Any[]
-  while length(unique(a)) < 4 
+  while length(unique(a)) < 4
     push!(a,rand('0':'9'))
     end
   my_guess = unique(a)
@@ -143,7 +143,7 @@ function bacs()
     else
       print("Guess?> ")
       s = chomp(readline())
-    end 
+    end
     if (s == "q")
       print("My guess was "); [print(my_guess[i]) for i=1:4]
       return
@@ -168,7 +168,7 @@ bacs()
 # The first call f1(1) is to run in the function and not affext the timing
 # This version uses the function in Base
 
-import LinearAlgebra:norm 
+import LinearAlgebra:norm
 f1(n) = norm(randn(n))
 
 f1(10);
@@ -183,7 +183,7 @@ f2(n) = sqrt(mapreduce(x -> x*x, +, randn(n)))
 f2(10);
 @time f2(100_000_000)
 
-# Using a conventional mapping we need to pipe the result to sum it 
+# Using a conventional mapping we need to pipe the result to sum it
 # and then take the square root
 # This takes a little longer than the previous.
 
@@ -209,8 +209,8 @@ f4(10);
 # Generate primes with Sieve of Eratoshenes
 #
 # Define a helper function and then the actual sieve.
-        
-cop(X, i) = any(j -> i % j == 0, X)        
+
+cop(X, i) = any(j -> i % j == 0, X)
 
 function erato(n::Integer)
   @assert n > 0
@@ -222,8 +222,8 @@ function erato(n::Integer)
   end
   return P
 end
-        
-# Run it for the number of primes upto 1 million        
+
+# Run it for the number of primes up to 1 million
 
 tm = @elapsed A = erato(1_000_000);
 print("Computed $(length(A)) primes in $(round(tm, digits=4)) sec.")
@@ -233,7 +233,7 @@ print("Computed $(length(A)) primes in $(round(tm, digits=4)) sec.")
 
 unique([foldr(*,erato(n),init=BigInt(1)) for n in 2:50])
 
-        
+
 # Julia Sets
 # Define high level function to create a Julia set
 
@@ -249,7 +249,7 @@ end
 
 function create_pgmfile(img, outf::String)
     s = open(outf, "w")
-    write(s, "P5\n")    
+    write(s, "P5\n")
     n, m = size(img)
     write(s, "$m $n 255\n")
     for i=1:n, j=1:m
@@ -261,9 +261,9 @@ end
 
 # Run function and create a 800x400 image
 # Redefine the c0 parameter to create a different set
-            
-h = 400; 
-w = 800; 
+
+h = 400;
+w = 800;
 m = Array{Int64,2}(undef,h,w);
 
 c0 = -0.8 + 0.16im;
@@ -286,4 +286,3 @@ create_pgmfile(m, pgm_name);
 
 img = load("jset.pgm");
 imgshow(img)
-

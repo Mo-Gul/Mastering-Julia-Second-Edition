@@ -1,4 +1,5 @@
 # Code Contents for Chapter 11
+
 #### The following files are present in this code directory.
 
 **Examples.jl** -- Listings for all code which can be run in the REPL or uploaded to VS Code.
@@ -7,7 +8,7 @@
 
 **getopt.jl** -- Script for testing option passing on the command line.
 
-**panto.jl** -- File of the _Pantomime_ routines. 
+**panto.jl** -- File of the _Pantomime_ routines.
 
 **queens.jl** -- Function to solve the _Queens_ problem.
 
@@ -18,6 +19,7 @@
 **statprof** -- Folder created by Stat HTML Profiler
 
 ---
+
 ### TOML files and Setup script
 
 **Project.toml** - Project TOML file.

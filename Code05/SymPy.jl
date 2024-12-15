@@ -88,6 +88,4 @@ as = -2:0.6:2
 ex = rhs(out)
 p = plot(ex(a=>as[1]), -1.8, 1.8, ylims=(-4, 4))
 [plot!(p, ex(a=>i), -1.8, 1.8, ylims=(-4, 4)) for i in as[2:end]]
-p  
-
-
+p

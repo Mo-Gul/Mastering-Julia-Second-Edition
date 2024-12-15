@@ -17,7 +17,7 @@ Base.show(io::IO, k::ModInt{n}) where n =
 -(a::ModInt{n}) where n = ModInt{n}(-a.k)
 
 inv(a::ModInt{n}) where n = ModInt{n}(invmod(a.k, n))
-(a::ModInt{n} / b::ModInt{n}) where n = a*inv(b) 
+(a::ModInt{n} / b::ModInt{n}) where n = a*inv(b)
 
 Base.promote_rule(::Type{ModInt{n}}, ::Type{Int}) where n = ModInt{n}
 Base.convert(::Type{ModInt{n}}, i::Int) where n = ModInt{n}(i)

@@ -11,7 +11,7 @@
 ### Folders with further more advanced examples
 
 - [Plots API](Plots-API)
-- [Gadfly](Gadfly) 
+- [Gadfly](Gadfly)
 - [Plotly](Plotly)
 - [Statistics Plots](StatPlots)
 - [Makie Framework](Makie)
@@ -20,7 +20,7 @@
 ---
 
 ### TOML files and Setup script
- 
+
 **Project.toml** - Project TOML file.
 
 **Manifest.toml** - Manifest TOML file.

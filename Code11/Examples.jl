@@ -6,7 +6,7 @@ using Pkg, Printf, Random, REPLHistory
 #= I use this to check for installed packages in my setup.jl,
 it is a little more verbose since the haskey() function was deprecated =#
 
- isinstalled(pkg::String) =
+isinstalled(pkg::String) =
   any(x -> x.name == pkg && x.is_direct_dep,
                      values(Pkg.dependencies()))
 
@@ -118,7 +118,7 @@ println("\nSize of original ARGS array: ", size(ARGS))
 println("Short list :: ", short_list)
 println("Long list  :: ", long_list, "\n")
 for (opt, arg) in getopt(ARGS, short_list, long_list)
-   @show (opt, arg)
+  @show (opt, arg)
 end
 println("Length of modified ARGS array: ", size(ARGS))
 

@@ -248,11 +248,11 @@ end
 # Make this mutable as I might change where I live
 #
 mutable struct Address
-  name::String
-  street::String
-  city::String
-  country::String
-  postcode::String
+    name::String
+    street::String
+    city::String
+    country::String
+    postcode::String
 end
 
 postal = Address("Malcolm Sherrington","1 Main Street", "London", "UK", "WC2N 9ZZ");
@@ -260,9 +260,9 @@ postal = Address("Malcolm Sherrington","1 Main Street", "London", "UK", "WC2N 9Z
 const Owner = Union{Contact, Address}
 
 struct Skiff <: Boat
-   owner::Owner
-   make::String
-   length_m::Float64
+    owner::Owner
+    make::String
+    length_m::Float64
 end
 
 y1 = Skiff(malcolm,"Moody 36", 11.02)

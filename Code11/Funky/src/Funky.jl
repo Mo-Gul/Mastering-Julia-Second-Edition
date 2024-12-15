@@ -33,14 +33,14 @@ function fib(n::Integer)
 end
 
 function hailstone(n::Integer)
-   k = 1
-   a = [n]
-   while n > 1
-      n = (n % 2 == 0) ? n >> 1 : 3n + 1
-      push!(a,n)
-      k += 1
-   end
-   a
+  k = 1
+  a = [n]
+  while n > 1
+    n = (n % 2 == 0) ? n >> 1 : 3n + 1
+    push!(a,n)
+    k += 1
+  end
+  a
 end
 
 function kempner(n::Integer)
@@ -58,19 +58,19 @@ end
 
 function isdate(s::String)
   b = false
-  try    
+  try
     Date(s)
-    b = true 
+    b = true
   finally
     return b
-  end    
+  end
 end
 
 function wordcount(text)
   wds = split(lowercase(text), PUNCTS; keepempty = false)
   d = Dict()
   for w = wds
-     d[w] = get(d,w,0)+1
+    d[w] = get(d,w,0)+1
   end
   return d
 end
@@ -103,8 +103,8 @@ macro traprun(c)
     if typeof($(esc(c))) == Cmd
       try
         run($(esc(c)))
-     catch
-     end
+      catch
+      end
     end
   end
 end
@@ -139,6 +139,6 @@ macro bmk(fex, n::Integer)
 end
 
 export basel, fac, fib, hailstone, kempner,  isdate, ftop, quandl
-export @traprun, @bmk, @until 
+export @traprun, @bmk, @until
 
 end

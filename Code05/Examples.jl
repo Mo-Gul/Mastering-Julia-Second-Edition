@@ -174,7 +174,7 @@ double c_pi(long n) {
         float x = ((float) rand())/rmax;
         float y = ((float) rand())/rmax;
         if ((x*x + y*y) < 1.0) {
-          k++;
+            k++;
         }
     }
     return 4.0*((double) k)/((double) n);
@@ -374,7 +374,7 @@ using RCall
 x = randn(1000);
 R"t.test($x)"
 
-# Optimise function using BFGS (Broyden–Fletcher–Goldfarb–Shannon§§§§§≠±±) algorithm
+# Optimize function using BFGS (Broyden–Fletcher–Goldfarb–Shannon§§§§§≠±±) algorithm
 #
 f(x) = 10*sin(0.3*x)*sin(1.3*x^2) + 0.00001*x^4 + 0.2*x + 40
 R"optim(0, $(x -> f(x)), method='BFGS')"
@@ -413,7 +413,7 @@ ggplot(dt, aes(x = date, y = idx_price, color = ticker)) +
 """
 
 using JavaCall
-JavaCall.init(["-Xmx128M"])     # Initialise and ask for additional memory
+JavaCall.init(["-Xmx128M"])     # Initialize and ask for additional memory
 
 #=
  May set the current directory as the classpath in the init() call
@@ -423,7 +423,7 @@ JavaCall.init(["-Xmx128M"])     # Initialise and ask for additional memory
  See: http://juliainterop.github.io/JavaCall.jl/faq.html
 
  This works inside in a Notebook, despite the segmentation fault (on OSX)
- In the REPL, julia may nned to be started with a --handle-signals=no
+ In the REPL, julia may need to be started with a --handle-signals=no
  option to disable Julia's signal handler.
  [This may cause issues with handling ^C in Julia programs.]
 =#
@@ -525,7 +525,7 @@ pwd()  #  Needs to be where the chapter 5 files are
 # Define a function to use the wordcount ('wc') utility
 wc(f) = isfile(f) && run(`wc $f`)
 
-# Count the number of occurences of 'beaver" in the Hunting of the Snark,
+# Count the number of occurrences of 'beaver" in the Hunting of the Snark,
 # piping the output to a file
 
 txtfile = "hunting-the-snark.txt";
@@ -542,7 +542,7 @@ wc(logfile);
 
 #=
   Do we have any lines with both beaver and bellman
-  Note in the 'grep' we ignored case (-i) but will stiil find
+  Note in the 'grep' we ignored case (-i) but will still find
   plurals and possibly punctuation, viz.: Beavers.
   I'll attend to this later.
 =#
@@ -598,13 +598,13 @@ end
 
 
 #=
- Perl has falled out of fashion with the rise of Python but still
+ Perl has fallen out of fashion with the rise of Python but still
  but still remains one of the best methods for data munging.
 
-  Unix distros and OSX (normally) have Perl avaiable but in Windows
+  Unix distros and OSX (normally) have Perl available but in Windows
   it needs to installed and on the executable path.
 
-  Julia performance in handling string is not one of its greatest strenghs
+  Julia performance in handling string is not one of its greatest strengths
   so munging large files can successfully done using Perl.
 
   Note:
@@ -653,7 +653,7 @@ c2 = `perl -ne 'print join("\n", split(/\s+/,$_));print("\n")'`;
 
 run(pipeline(c1,c2,`sort`,`grep -ve '^$'`,`uniq -c`,`sort -rn`,`head -10`));
 
-# Look at occurences of Bellman
+# Look at occurrences of Bellman
 #
 run(pipeline(c1,c2,`sort`,`grep -ve '^$'`,`uniq -c`,`sort -rn`,`grep -i Bellman`));
 

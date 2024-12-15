@@ -1,15 +1,15 @@
 const QURL = "https://www.quandl.com/api/v3/datasets/";
 
-function quandl(qdset::String; apikey="", order="A", type="TB") 
+function quandl(qdset::String; apikey="", order="A", type="TB")
   url  = string(QURL,qdset,".csv")
-  (length(apikey) > 0) && (url = string(url,"?apikey=",apikey))        
+  (length(apikey) > 0) && (url = string(url,"?apikey=",apikey))
   if !((order=="A") || (order=="D"))
     println("Sort order must be A or D")
-    return nothing  
+    return nothing
   end
   if !((type=="TA") || (type=="TB") || (type=="DF"))
     println("Output type must be TA or TB or DF")
-    return nothing  
+    return nothing
   end
   resp = HTTP.get(url);
   if resp.status == 200
@@ -18,12 +18,12 @@ function quandl(qdset::String; apikey="", order="A", type="TB")
     println("Can't get data from Quandl for dataset: ", qdset)
   end
   if order == "A"
-    sort!(df) 
+    sort!(df)
   end
   if type == "TA"
     return df2ta(df)
   elseif type == "TB"
-    return df2tb(df)  
+    return df2tb(df)
   else
     return df
   end

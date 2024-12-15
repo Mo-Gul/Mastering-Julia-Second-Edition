@@ -1,4 +1,4 @@
-# Contents for Visualization section : StatsPlots 
+# Contents for Visualization section : StatsPlots
 
 #### The following files are present in this code directory.
 

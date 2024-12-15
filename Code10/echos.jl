@@ -20,7 +20,7 @@ function parse_commandline()
     help = "run quietly, i.e. with no server output"
     action = :store_true
   end
- return parse_args(s)
+  return parse_args(s)
 end
 
 pa = parse_commandline()
@@ -39,10 +39,10 @@ while true
     try
       while true
         s0 = readline(conn)
-        s1 = chomp(s0) 
-        if length(chomp(s1)) > 0 
+        s1 = chomp(s0)
+        if length(chomp(s1)) > 0
           s2 = reverse(s1)
-          if s2 == "." 
+          if s2 == "."
             println("Done.")
             close(conn)
             exit(0)

@@ -5,11 +5,11 @@
 using DelimitedFiles
 
 nargs = length(ARGS);
-if nargs == 1 || nargs > 2 
+if nargs == 1 || nargs > 2
     tsvfile = ARGS[1];
 else
     println("usage: etl.jl tsvfile");
-    exit(); 
+    exit();
 end
 
 # One liner to double up single quotes
@@ -23,7 +23,7 @@ n = size(qq)[1];
 j = 0;
 cats = Dict{String,Int64}();
 
-# Main loop to load up the quotes table 
+# Main loop to load up the quotes table
 for i = 1:n
   cat = qq[i,1];
   if haskey(cats,cat)
@@ -33,11 +33,11 @@ for i = 1:n
     jd = j;
     cats[cat] = jd;
   end
-  sql = "insert into quotes values($i,$jd,";  
+  sql = "insert into quotes values($i,$jd,";
   if (length(qq[i,2]) > 0)
     sql *= string("'", escticks(qq[i,2]), "',");
   else
-    sql *= string("null,");  
+    sql *= string("null,");
   end
   sql *= string("'", escticks(qq[i,3]), "');");
   println(sql);
@@ -47,6 +47,5 @@ end
 
 for cat = keys(cats)
   jd = cats[cat];
-    println("insert into categories values($jd,'$cat');");  
+  println("insert into categories values($jd,'$cat');");
 end
-

@@ -19,7 +19,7 @@ function parse_commandline()
     help = "run quietly, i.e. with no server output"
     action = :store_true
   end
- return parse_args(s)
+  return parse_args(s)
 end
 
 pa = parse_commandline()
@@ -30,4 +30,3 @@ vflag = !pa["quiet"]
 println("Host: ",host)
 println("Port: ",eport)
 println("Flag: ",vflag)
-

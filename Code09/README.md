@@ -14,7 +14,7 @@
 
 **_etl.jl_** -- Script to create Quotes SQL load file.
 
-**_build.sql_** 
+**_build.sql_**
 
 **_qloader.sql_**
 
