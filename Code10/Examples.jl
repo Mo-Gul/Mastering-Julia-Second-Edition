@@ -365,7 +365,7 @@ end
 @show(fac(7),fac(9),fac(11),fac(13))
 
 
-## [ Needles and PI(ns) ] ##
+## [ Needles and π(ns) ] ##
 
 # A sequential version
 function needles_seq(n::Integer)

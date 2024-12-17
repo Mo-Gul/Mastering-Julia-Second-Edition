@@ -14,7 +14,7 @@ using UnicodePlots
 N = 10^8
 
 # ╔═╡ 79480941-f66b-4411-b7ad-9b4983f0c273
-md"### Estimating PI"
+md"### Estimating π"
 
 # ╔═╡ 5c182f2a-82fb-4a65-b503-0ef42d81e11e
 sumsq(x,y) = x*x + y*y;
@@ -33,7 +33,7 @@ end
 mypi = 4.0*(K / N)
 
 # ╔═╡ 8ea70598-dbf1-49a2-ba4e-3a27b9afe044
-md"""Estimate of PI after $N trials is $mypi"""
+md"""Estimate of π after $N trials is $mypi"""
 
 # ╔═╡ f93e5370-a3f0-4340-8321-2e6fe47f69a8
 piG = ((rand()^2 + rand()^2) < 1.0 for i = 1:N)

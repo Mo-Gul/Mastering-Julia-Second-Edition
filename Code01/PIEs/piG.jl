@@ -11,4 +11,4 @@ for i in 1:N
   end
 end
 
-@Printf.printf "Estimate of PI for %d trials is %8.5f\n" N 4.0*(K / N);
+@Printf.printf "Estimate of π for %d trials is %8.5f\n" N 4.0*(K / N);

@@ -17,7 +17,7 @@ dd = gd.plot(x = X, y = Y)
 draw(PNG("random-pts.png", 15cm, 12cm) , dd)
 
 K = lastindex(X); # => 782
-println("Estimate of PI is ", round(4*K/N, digits=3))
+println("Estimate of π is ", round(4*K/N, digits=3))
 
 #-------------------------------------------------------
 

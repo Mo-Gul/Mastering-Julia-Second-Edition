@@ -24,7 +24,7 @@ end
 P = 4.0*(K / N)
 
 # ╔═╡ 6f1cf3e8-9590-434c-a0c0-cbba27c832f6
-md"Estimate of PI for $N trials is $P"
+md"Estimate of π for $N trials is $P"
 
 # ╔═╡ Cell order:
 # ╠═1387ac0b-dc6a-4d1a-ac5e-b1c81136efc0

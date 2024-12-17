@@ -13,4 +13,4 @@ while (true)
 end
 
 P = 4.0*(K / N);
-println("Estimate of PI for $N trials is $P")
+println("Estimate of π for $N trials is $P")

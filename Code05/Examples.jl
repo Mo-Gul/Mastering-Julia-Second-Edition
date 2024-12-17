@@ -160,7 +160,7 @@ aa = [1.0, 2.0, 3.0, 4.0, 5.0];
 ccall((:horner,"libmyfuns.dylib"),Cdouble,
               (Cdouble,Ptr{Cdouble},Clong),x,aa,length(aa))
 
-# Compute PI in 'C', usual Monte Carlo method
+# Compute π in 'C', usual Monte Carlo method
 # We ca put the C code in a multiline string
 
 C_code = """

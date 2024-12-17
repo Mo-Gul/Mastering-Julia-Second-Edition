@@ -328,7 +328,7 @@ k = 0
 for i in 1:length(vv)
   if norm(vv[i]) < 1.0 k +=1 end
 end
-@printf "Estimate of PI is %9.5f\n" 6.0*k/length(vv)
+@printf "Estimate of π is %9.5f\n" 6.0*k/length(vv)
 
 #
 # Defining the Vec3 parameterically and the rest of the module is unchanged

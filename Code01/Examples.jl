@@ -20,9 +20,9 @@ for i = 1:N
   end
 end
 
-# ... and output the value for PI
+# ... and output the value for π
 
-@Printf.printf "Estimate of PI for %d trials is %8.5f\n" N 4.0*(K / N);
+@Printf.printf "Estimate of π for %d trials is %8.5f\n" N 4.0*(K / N);
 
 # We can time this using the @time macro
 # Note that his takes some time, will be different in the REPL

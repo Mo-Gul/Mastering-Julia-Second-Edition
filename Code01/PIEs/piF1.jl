@@ -14,4 +14,4 @@ function compute_pi(NN)
 end
 
 KK = compute_pi(N)
-@Printf.printf "Estimate of PI for %d trials is %8.5f\n" N 4.0*(KK / N);
+@Printf.printf "Estimate of π for %d trials is %8.5f\n" N 4.0*(KK / N);
