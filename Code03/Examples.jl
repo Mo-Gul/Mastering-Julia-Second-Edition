@@ -20,7 +20,7 @@ f(x, p = 0.0) = exp(p*x)*sin(x);
 t = range(0.0,stop=8.0*π,length=101);
 w1 = Array{Float64}(undef,length(t));
 w2 = Array{Float64}(undef,length(t));
-for i = 1:length(w)
+for i = eachindex(w)
   w1[i] = f(t[i])
   w2[I] = f(t[i], 0.1)
 end
@@ -325,7 +325,7 @@ dw = dv'
 ee = eigen(dw)
 
 k = 0
-for i in 1:length(vv)
+for i in eachindex(vv)
   if norm(vv[i]) < 1.0 k +=1 end
 end
 @printf "Estimate of π is %9.5f\n" 6.0*k/length(vv)

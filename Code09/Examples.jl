@@ -323,7 +323,7 @@ group by e."EmployeeId"
 # Loop through the NameTuple
 qry = fetch!(NamedTuple, execute(conn, sqlx))
 using Printf
-for i in 1:length(qry)
+for i in eachindex(qry)
 @printf("%s %s has %d sales.\n",
 qry.FirstName[i], qry.LastName[i]. qry.Sales[i])
 end

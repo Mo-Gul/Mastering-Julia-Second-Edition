@@ -693,7 +693,7 @@ vcat(cpi[1:3],cpi[end-2:end])
 dsg10 = fred("DGS10")
 vcat(dsg10[1:3],dsg10[end-2:end])
 
-t = collect(1:length(dsg10))
+t = collect(eachindex(dsg10))
 y = values(dsg10)
 PyPlot.plot(t,y)
 

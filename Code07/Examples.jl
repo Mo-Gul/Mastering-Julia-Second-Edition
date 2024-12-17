@@ -116,7 +116,7 @@ M = 16;
 xm = ones(Float64, M) / M;
 xf = conv(xn, xm)
 
-Plots.plot(1:length(xf), xf)
+Plots.plot(eachindex(xf), xf)
 
 responsetype = Lowpass(0.2)
 
@@ -136,7 +136,7 @@ responsetype = Bandpass(10, 40; fs=1000)
 prototype = Butterworth(4)
 
 xb = filt(digitalfilter(responsetype, prototype), x)
-plot(1:length(xb), xb)
+plot(eachindex(xb), xb)
 
 # Image Processing
 

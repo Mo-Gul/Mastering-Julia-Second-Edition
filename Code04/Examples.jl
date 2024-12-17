@@ -14,7 +14,7 @@ aa = rand(3)
 
 recip(aa)
 
-## recip(a::Array) = [a[i] = recip(a[i]) for i = 1:length(a)]
+## recip(a::Array) = [a[i] = recip(a[i]) for i = eachindex(a)]
 ## OR
 
 recip(a::Array) = map(recip,a)
@@ -215,7 +215,7 @@ end
 
 function poly_native(x, a...)
   p=zero(x)
-  for i = 1:length(a)
+  for i = eachindex(a)
     p = p + a[i] *  x^(i-1)
   end
   return p
@@ -285,7 +285,7 @@ macro q(s)
   try
     if length(s0) > 0
       ss = split(ss,'\n')
-      for i = 1:length(ss)
+      for i = eachindex(ss)
          println(reverse(ss[i]))
       end
     end

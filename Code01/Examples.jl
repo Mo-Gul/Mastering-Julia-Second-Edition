@@ -115,7 +115,7 @@ using UnicodePlots
 # The ordinate value is create using a list comprehensive
 
 x = collect(1:100);
-y = [x[i]*sin(0.3*x[i])*exp(-0.03*x[i]) for i = 1:length(x)];
+y = [x[i]*sin(0.3*x[i])*exp(-0.03*x[i]) for i = eachindex(x)];
 
 myPlot = lineplot(x, y, title = "My Plot", name = "chp-01")
 

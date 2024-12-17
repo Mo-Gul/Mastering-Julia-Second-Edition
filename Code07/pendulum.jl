@@ -45,9 +45,9 @@ sol = solve(prob)
 
 # plot(sol)
 
-θ = [sol.u[i][1] for i = 1:length(sol.u)]
-ϕ = [sol.u[i][2] for i = 1:length(sol.u)]
-τ = [sol.t[i] for i = 1:length(sol.u)]
+θ = [sol.u[i][1] for i = eachindex(sol.u)]
+ϕ = [sol.u[i][2] for i = eachindex(sol.u)]
+τ = [sol.t[i] for i = eachindex(sol.u)]
 
 using PythonPlot
 plot(τ,θ)
