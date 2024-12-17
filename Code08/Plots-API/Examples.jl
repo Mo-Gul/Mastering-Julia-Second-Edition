@@ -1,7 +1,7 @@
 using Plots
 
 # Use GR as backend
-julia> gr()
+gr()
 Plots.GRBackend()
 
 # [1]. Plot some simple sinusoidal curves
@@ -22,8 +22,8 @@ markershapes = [:diamond :circle :star5]
 markercolors = [:orange :red :blue]
 
 # Now create the display
-julia> p = plot(xs, data, label = labels,  shape = markershapes,
-                markercolor = markercolors, markersize = 5)
+p = plot(xs, data, label = labels,  shape = markershapes,
+         markercolor = markercolors, markersize = 5)
 
 
 # [2]. Multiple plots using layouts.

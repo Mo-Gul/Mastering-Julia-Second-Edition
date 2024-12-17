@@ -390,9 +390,10 @@ julia > msft = sf .* df ;
 n = minimum([length(aapl),length(msft)]);
 t = collect(1:n);.
 
-conn = RedisConnection() julia> for i = n-1:-1:0
-rpush(conn,'APPL~Close',aapl[end-i])
-rpush(conn,'MSFT~Close',msft[end-i])
+conn = RedisConnection()
+for i = n-1:-1:0
+  rpush(conn,'APPL~Close',aapl[end-i])
+  rpush(conn,'MSFT~Close',msft[end-i])
 end
 
 # Redis lists are zero-based

@@ -89,12 +89,12 @@ evunset(evvar::String) =
 packt = evset("PACKT_HOME",
             string(myHome,"/Users/malcolm/PacktPub"));
 
-julia> ENV["PACKT_HOME"]
-"/Users/malcolm/PacktPub"
+ENV["PACKT_HOME"]
+# "/Users/malcolm/PacktPub"
 
 # Now unset it, verify it is so.
-julia> evunset("PACKT_HOME");
-julia> ENV["PACKT_HOME"]
+evunset("PACKT_HOME");
+ENV["PACKT_HOME"]
 # ERROR: KeyError: key "PACKT_HOME" not found
 
 

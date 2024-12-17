@@ -132,7 +132,7 @@ Pkg.add("RDatasets")
 create_sysimage([:Gadfly, :RDatasets];
                 sysimage_path="sys_Gadfly.dylib")
 
-julia> using Gadfly, RDatasets
+using Gadfly, RDatasets
 #=
 To create the plot we are required to push the Gadfly backend
 into the O/S memory stack
@@ -220,7 +220,7 @@ end
 # Modify alibabi to highlight step with uses most computing time
 
 nn_thieves = 40;
-julia> function alibaba_1(n::Integer)
+function alibaba_1(n::Integer)
   @assert n >= nn_thieves
   s = 0.0
   k = n/nn_thieves
