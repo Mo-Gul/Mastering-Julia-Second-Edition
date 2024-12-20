@@ -539,7 +539,11 @@ size(mlmf)
 
 mlmf[1:5,:]
 
-describe(mlmf)
+# describe(mlmf)  # results in an error
+describe(mlmf[!,:Student])
+describe(mlmf[!,:School])
+describe(mlmf[!,:Written])
+describe(mlmf[!,:Course])
 
 writtenF = collect(skipmissing(mlmf[mlmf.Gender .== "F", :Written]));
 writtenM = collect(skipmissing(mlmf[mlmf.Gender .== "M", :Written]));
@@ -552,7 +556,7 @@ writtenM = collect(skipmissing(mlmf[mlmf.Gender .== "M", :Written]));
 tt = round(abs(σWM - σWF)/σW , digits=4)
 
 # p ~ 0.33; 95% ~ 0.06, 90% ~ 0.13
-0.9726
+0.9719
 
 
 courseF = collect(skipmissing(mlmf[mlmf.Gender .== "F", :Course]));
@@ -642,13 +646,11 @@ cor(dw68107ss, dw68411ss)
 
 cor(dc68107ss, dc68411ss)
 
-dwf = convert(DataFrame, hcat(dw68107ss, dw68411ss))
-names!(dwf, [:s68107, :s68411])
+dwf = DataFrame(hcat(dw68107ss, dw68411ss), [:s68107, :s68411])
 
 dwf[1:5,:]
 
-dcf = convert(DataFrame, hcat(dc68107ss, dc68411ss))
-names!(dcf, [:s68107, :s68411])
+dcf = DataFrame(hcat(dc68107ss, dc68411ss), [:s68107, :s68411])
 
 dcf[1:5, :]
 
