@@ -507,8 +507,8 @@ quakes = dataset("datasets", "quakes");
 
 quakes[1:5,:]
 
-mags  = Float64.(quakes[:Mag]);
-depth = Float64.(quakes[:Depth]);
+mags  = Float64.(quakes[!,:Mag]);
+depth = Float64.(quakes[!,:Depth]);
 
 cor(mags,depth)
 
@@ -519,7 +519,7 @@ scatter(depth,mags)
 
 describe(mags)
 
-mags = Float64.(quakes[:Mag]);
+mags = Float64.(quakes[!,:Mag]);
 (m1, m2, m3, m4) = map(x -> round(x,digits=4),
               [mean(mags), std(mags), skewness(mags), kurtosis(mags)]);
 
@@ -575,7 +575,7 @@ using RDatasets, KernelDensity
 
 mlmf = dataset("mlmRev", "Gcsemv");
 
-df = mlmf[completecases(mlmf[[:Written, :Course]]), :]
+df = mlmf[completecases(mlmf[!,[:Written, :Course]]), :]
 
 macro F64(sym)
   quote
@@ -583,8 +583,8 @@ macro F64(sym)
   end
 end
 
-dc = @F64 df[:Course];
-dW = @F64 df[:Written];
+dc = @F64 df[!,:Course];
+dw = @F64 df[!,:Written];
 
 kdc = kde(dc)
 
@@ -602,9 +602,9 @@ PyPlot.plot(kdw.x, kdw.density, linestyle="--")
 for subdf in groupby(df, :School)
   (size(subdf)[1] > 40) &&
     let
-      sch = subdf[:School][1]
-      msw = mean(subdf[:Written])
-      msc = mean(subdf[:Course])
+      sch = subdf[!,:School][1]
+      msw = mean(subdf[!,:Written])
+      msc = mean(subdf[!,:Course])
       @printf "%10s : %8.4f %8.4f\n" sch msw msc
     end
 end
@@ -613,21 +613,21 @@ end
 
 using HypothesisTests
 
-df68107 = mlmf[mlmf[:School] .== "68107", :];
-df68107cc = df68107[completecases(df68107[[:Written, :Course]]), :];
+df68107 = mlmf[mlmf[!,:School] .== "68107", :];
+df68107cc = df68107[completecases(df68107[!,[:Written, :Course]]), :];
 
-df68411 = mlmf[mlmf[:School] .== "68411", :];
-df68411cc = df68411[completecases(df68411[[:Written, :Course]]), :];
+df68411 = mlmf[mlmf[!,:School] .== "68411", :];
+df68411cc = df68411[completecases(df68411[!,[:Written, :Course]]), :];
 
 
-df68107wri = @F64 df68107cc[:Written];
-df68411wri = @F64 df68411cc[:Written];
+df68107wri = @F64 df68107cc[!,:Written];
+df68411wri = @F64 df68411cc[!,:Written];
 
 UnequalVarianceTTest(df68107wri, df68411wri)
 
 
-df68107cou = @F64 df68107cc[:Course];
-df68411cou = @F64 df68411cc[:Course];
+df68107cou = @F64 df68107cc[!,:Course];
+df68411cou = @F64 df68411cc[!,:Course];
 
 UnequalVarianceTTest(df68107cou, df68411cou)
 
